@@ -6,9 +6,10 @@ import type { ArticleFrontmatter } from '@/lib/types';
 
 interface SearchBarProps {
   articles: ArticleFrontmatter[];
+  onQueryChange?: (query: string) => void;
 }
 
-export default function SearchBar({ articles }: SearchBarProps) {
+export default function SearchBar({ articles, onQueryChange }: SearchBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [query, setQuery] = useState('');
   const [debouncedQuery, setDebouncedQuery] = useState('');
@@ -16,11 +17,13 @@ export default function SearchBar({ articles }: SearchBarProps) {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setDebouncedQuery(query.trim().toLowerCase());
+      const nextQuery = query.trim().toLowerCase();
+      setDebouncedQuery(nextQuery);
+      onQueryChange?.(nextQuery);
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [query]);
+  }, [onQueryChange, query]);
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {

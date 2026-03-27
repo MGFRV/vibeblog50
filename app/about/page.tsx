@@ -1,8 +1,44 @@
 export default function AboutPage() {
   return (
-    <main className="mx-auto max-w-4xl p-8">
-      <h1 className="text-2xl font-semibold text-primary">О проекте</h1>
-      <p className="mt-4">Раздел будет заполнен в следующих шагах.</p>
-    </main>
+    <section className="mx-auto max-w-3xl">
+      <h1 className="text-3xl font-bold text-primary">О проекте ЗакупкиПро</h1>
+
+      <div className="mt-5 space-y-4 text-text/85">
+        <p>
+          «ЗакупкиПро» — это экспертный блог для специалистов по снабжению, байеров и руководителей ОМТС, которые
+          ежедневно принимают решения о закупке промышленного оборудования и запчастей.
+        </p>
+        <p>
+          Наша миссия — помогать закупщикам работать системно: снижать риски, выбирать надёжных поставщиков и
+          выстраивать прозрачный процесс закупки от заявки до поставки.
+        </p>
+        <p>
+          Мы публикуем практические материалы на русском языке, ориентированные на реальную работу в российских
+          условиях: с учётом документации, сроков, тендерных процедур и экономической эффективности.
+        </p>
+        <p>
+          Контент готовится в формате, удобном для внедрения в работу: чек-листы, разборы ошибок и пошаговые
+          инструкции.
+        </p>
+      </div>
+
+      <div className="mt-8 rounded-lg bg-surface p-6 shadow-sm">
+        <h2 className="text-xl font-bold text-primary">Темы блога</h2>
+        <ul className="mt-3 list-disc space-y-2 pl-5 text-sm text-text/80">
+          <li>Выбор промышленного оборудования и запчастей</li>
+          <li>Процессы закупки, планирование и контроль поставок</li>
+          <li>Работа с поставщиками и оценка рисков</li>
+          <li>Документация, договоры и ЭДО</li>
+          <li>Типовые ошибки закупщиков, KPI и лайфхаки</li>
+        </ul>
+
+        <p className="mt-5 text-sm">
+          Контакты редакции:{' '}
+          <a className="font-semibold text-accent hover:underline" href="mailto:info@zakupkipro.ru">
+            info@zakupkipro.ru
+          </a>
+        </p>
+      </div>
+    </section>
   );
 }

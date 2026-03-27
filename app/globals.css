@@ -9,3 +9,32 @@
 body {
   @apply bg-background text-text;
 }
+
+.prose table {
+  @apply my-6 w-full border-collapse overflow-hidden rounded-lg border border-primary/20 text-sm;
+}
+
+.prose thead th {
+  @apply bg-primary text-left text-white;
+}
+
+.prose th,
+.prose td {
+  @apply border border-primary/20 px-3 py-2;
+}
+
+.prose tbody tr:nth-child(even) {
+  @apply bg-background;
+}
+
+.prose blockquote {
+  @apply my-6 border-l-4 border-accent bg-background px-4 py-3 text-text/85;
+}
+
+.prose code {
+  @apply rounded bg-slate-100 px-1.5 py-0.5 font-mono text-[0.9em] text-text;
+}
+
+.prose a {
+  @apply text-accent underline-offset-4 transition hover:underline;
+}

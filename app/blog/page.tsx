@@ -1,8 +1,10 @@
+import BlogPageClient from '@/components/BlogPageClient';
+import { CATEGORIES } from '@/lib/constants';
+import { getAllArticles } from '@/lib/articles';
+
 export default function BlogPage() {
-  return (
-    <main className="mx-auto max-w-4xl p-8">
-      <h1 className="text-2xl font-semibold text-primary">Блог</h1>
-      <p className="mt-4">Список статей скоро появится.</p>
-    </main>
-  );
+  const articles = getAllArticles().map(({ content: _content, ...frontmatter }) => frontmatter);
+  const categories = CATEGORIES.map((category) => category.name);
+
+  return <BlogPageClient articles={articles} categories={categories} />;
 }
