@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/og-default.svg',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'ЗакупкиПро — Блог о закупках промышленного оборудования'
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'ЗакупкиПро — Блог о закупках промышленного оборудования',
     description: SITE_DESCRIPTION,
-    images: ['/og-default.svg']
+    images: ['/opengraph-image']
   }
 };
 
