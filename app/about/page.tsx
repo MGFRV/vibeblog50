@@ -1,11 +1,11 @@
 export default function AboutPage() {
   return (
     <section className="mx-auto max-w-3xl">
-      <h1 className="text-3xl font-bold text-primary">О проекте ЗакупкиПро</h1>
+      <h1 className="text-3xl font-bold text-primary">О проекте ПодборОборудования</h1>
 
       <div className="mt-5 space-y-4 text-text/85">
         <p>
-          «ЗакупкиПро» — это экспертный блог для специалистов по снабжению, байеров и руководителей ОМТС, которые
+          «ПодборОборудования» — это экспертный блог для специалистов по снабжению, байеров и руководителей ОМТС, которые
           ежедневно принимают решения о закупке промышленного оборудования и запчастей.
         </p>
         <p>
@@ -34,8 +34,8 @@ export default function AboutPage() {
 
         <p className="mt-5 text-sm">
           Контакты редакции:{' '}
-          <a className="font-semibold text-accent hover:underline" href="mailto:info@zakupkipro.ru">
-            info@zakupkipro.ru
+          <a className="font-semibold text-accent hover:underline" href="mailto:info@podbor-oborudovaniya.ru">
+            info@podbor-oborudovaniya.ru
           </a>
         </p>
       </div>

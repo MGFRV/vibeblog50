@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -8,9 +8,44 @@ import './globals.css';
 
 const inter = Inter({ subsets: ['latin', 'cyrillic'], display: 'swap' });
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1
+};
+
 export const metadata: Metadata = {
-  title: 'ЗакупкиПро — Блог о закупках промышленного оборудования',
-  description: SITE_DESCRIPTION
+  metadataBase: new URL(SITE_URL),
+  title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
+  description: SITE_DESCRIPTION,
+  alternates: {
+    canonical: '/'
+  },
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
+    description: SITE_DESCRIPTION,
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: 'ru_RU',
+    type: 'website',
+    images: [
+      {
+        url: '/og-default.svg',
+        width: 1200,
+        height: 630,
+        alt: 'ПодборОборудования — Блог о закупках промышленного оборудования'
+      }
+    ]
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
+    description: SITE_DESCRIPTION,
+    images: ['/og-default.svg']
+  }
 };
 
 export default function RootLayout({
@@ -33,6 +68,12 @@ export default function RootLayout({
 
   return (
     <html lang="ru">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="robots" content="index, follow" />
+        <link rel="canonical" href={SITE_URL + '/'} />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </head>
       <body className={`${inter.className} min-h-screen bg-background text-text antialiased`}>
         <SchemaOrg data={webSiteSchema} />
         <Header />
