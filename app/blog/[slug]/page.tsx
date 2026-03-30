@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
   if (!article) {
     return {
-      title: 'Статья не найдена | ЗакупкиПро'
+      title: 'Статья не найдена | ПодборОборудования'
     };
   }
 

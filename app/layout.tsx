@@ -15,7 +15,7 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: 'ЗакупкиПро — Блог о закупках промышленного оборудования',
+  title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
   description: SITE_DESCRIPTION,
   alternates: {
     canonical: '/'
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     follow: true
   },
   openGraph: {
-    title: 'ЗакупкиПро — Блог о закупках промышленного оборудования',
+    title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
     description: SITE_DESCRIPTION,
     url: SITE_URL,
     siteName: SITE_NAME,
@@ -33,18 +33,18 @@ export const metadata: Metadata = {
     type: 'website',
     images: [
       {
-        url: '/opengraph-image',
+        url: '/og-default.svg',
         width: 1200,
         height: 630,
-        alt: 'ЗакупкиПро — Блог о закупках промышленного оборудования'
+        alt: 'ПодборОборудования — Блог о закупках промышленного оборудования'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ЗакупкиПро — Блог о закупках промышленного оборудования',
+    title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
     description: SITE_DESCRIPTION,
-    images: ['/opengraph-image']
+    images: ['/og-default.svg']
   }
 };
 

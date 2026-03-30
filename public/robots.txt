@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://zakupkipro.ru/sitemap.xml
+Sitemap: https://podbor-oborudovaniya.ru/sitemap.xml
