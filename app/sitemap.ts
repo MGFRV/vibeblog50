@@ -26,9 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   ];
 
-  const articles = getAllArticles()
-    .filter((article) => article.slug !== 'test-article')
-    .map((article) => ({
+  const articles = getAllArticles().map((article) => ({
       url: `${SITE_URL}/blog/${article.slug}`,
       priority: 0.8,
       changeFrequency: 'monthly' as const,
