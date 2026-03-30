@@ -60,7 +60,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
   if (!article) {
     return {
-      title: 'Статья не найдена | ЗакупкиПро'
+      title: 'Статья не найдена | ПодборОборудования'
     };
   }
 
@@ -72,12 +72,33 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     alternates: {
       canonical
     },
+    robots: {
+      index: true,
+      follow: true
+    },
     openGraph: {
       title: article.title,
       description: article.description,
       url: canonical,
       siteName: SITE_NAME,
-      type: 'article'
+      locale: 'ru_RU',
+      type: 'article',
+      publishedTime: article.date,
+      modifiedTime: article.date,
+      images: [
+        {
+          url: `${SITE_URL}/og-default.svg`,
+          width: 1200,
+          height: 630,
+          alt: article.title
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      images: [`${SITE_URL}/og-default.svg`]
     }
   };
 }
@@ -89,6 +110,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
+  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
   const headings = extractHeadings(article.content);
   const related = getRelatedArticles(article.slug, article.category, 3).map(({ content: _content, ...item }) => item);
 
@@ -98,15 +120,45 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     headline: article.title,
     description: article.description,
     datePublished: article.date,
+    dateModified: article.date,
     author: {
       '@type': 'Organization',
       name: AUTHOR
     },
     publisher: {
       '@type': 'Organization',
-      name: SITE_NAME
+      name: SITE_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/favicon.svg`
+      }
     },
-    mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`
+    mainEntityOfPage: articleUrl
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Главная',
+        item: `${SITE_URL}/`
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Блог',
+        item: `${SITE_URL}/blog`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: articleUrl
+      }
+    ]
   };
 
   const breadcrumbs = [
@@ -119,6 +171,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   return (
     <>
       <SchemaOrg data={articleSchema} />
+      <SchemaOrg data={breadcrumbSchema} />
       <Breadcrumbs items={breadcrumbs} />
 
       <article>
@@ -132,7 +185,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         </div>
 
         <div className="mt-5">
-          <ShareButtons title={article.title} url={`${SITE_URL}/blog/${article.slug}`} />
+          <ShareButtons title={article.title} url={articleUrl} />
         </div>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">

@@ -7,7 +7,7 @@ export default function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3 md:px-6">
         <div>
           <Link href="/" className="text-xl font-bold">
-            ЗакупкиПро
+            ПодборОборудования
           </Link>
           <p className="mt-3 max-w-xs text-sm text-white/70">
             Экспертный B2B-блог о выборе и закупке промышленного оборудования и запчастей в РФ.
@@ -29,14 +29,14 @@ export default function Footer() {
 
         <div>
           <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Контакты</h3>
-          <a className="mt-3 inline-block text-sm text-white/70 hover:text-white" href="mailto:info@zakupkipro.ru">
-            info@zakupkipro.ru
+          <a className="mt-3 inline-block text-sm text-white/70 hover:text-white" href="mailto:info@podbor-oborudovaniya.ru">
+            info@podbor-oborudovaniya.ru
           </a>
         </div>
       </div>
 
       <div className="border-t border-white/10">
-        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-white/60 md:px-6">© 2025 ЗакупкиПро</p>
+        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-white/60 md:px-6">© 2025 ПодборОборудования</p>
       </div>
     </footer>
   );
