@@ -16,7 +16,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-primary text-white shadow-sm">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
         <Link href="/" className="text-xl font-bold tracking-tight">
-          ЗакупкиПро
+          ПодборОборудования
         </Link>
 
         <button
