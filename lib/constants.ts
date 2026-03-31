@@ -1,10 +1,10 @@
 import type { Category } from '@/lib/types';
 
-export const SITE_NAME = 'ЗакупкиПро';
+export const SITE_NAME = 'ПодборОборудования';
 export const SITE_DESCRIPTION =
   'Экспертный блог о поиске, выборе и закупке промышленного оборудования и запчастей в России. Для специалистов по закупкам и снабжению.';
-export const SITE_URL = 'https://zakupkipro.ru'; // плейсхолдер
-export const AUTHOR = 'Редакция ЗакупкиПро';
+export const SITE_URL = 'https://podbor-oborudovaniya.ru'; // плейсхолдер
+export const AUTHOR = 'Редакция ПодборОборудования';
 
 export const CATEGORIES: { name: Category; slug: string; description: string }[] = [
   {
