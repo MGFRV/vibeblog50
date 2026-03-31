@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -193,11 +194,12 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             <div className="lg:hidden">
               <TableOfContents headings={headings} />
             </div>
-            <div className="prose max-w-none prose-headings:font-bold prose-headings:text-primary">
+            <div className="prose prose-lg max-w-none prose-headings:text-[#0F4C3A] prose-a:text-[#C87533] prose-a:underline prose-strong:text-[#1A2E26]">
               <MDXRemote
                 source={article.content}
                 options={{
                   mdxOptions: {
+                    remarkPlugins: [remarkGfm],
                     rehypePlugins: [
                       rehypeSlug,
                       [
