@@ -33,7 +33,7 @@ export function buildCategories(articles: ArticleFrontmatter[]): CategoryItem[] 
       return {
         name,
         slug: known?.slug ?? slugifyCategory(name),
-        description: known?.description ?? 'Статьи по категории',
+        description: known?.description ?? 'Все статьи по теме собраны здесь',
         count
       };
     })
