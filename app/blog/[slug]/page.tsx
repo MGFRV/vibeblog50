@@ -88,7 +88,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       modifiedTime: article.date,
       images: [
         {
-          url: `${SITE_URL}/og-default.svg`,
+          url: `${SITE_URL}/opengraph-image`,
           width: 1200,
           height: 630,
           alt: article.title
@@ -99,7 +99,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
       card: 'summary_large_image',
       title: article.title,
       description: article.description,
-      images: [`${SITE_URL}/og-default.svg`]
+      images: [`${SITE_URL}/opengraph-image`]
     }
   };
 }
