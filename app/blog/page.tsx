@@ -1,10 +1,10 @@
 import BlogPageClient from '@/components/BlogPageClient';
-import { CATEGORIES } from '@/lib/constants';
 import { getAllArticles } from '@/lib/articles';
+import { buildCategories } from '@/lib/categories';
 
 export default function BlogPage() {
   const articles = getAllArticles().map(({ content: _content, ...frontmatter }) => frontmatter);
-  const categories = CATEGORIES.map((category) => category.name);
+  const categories = buildCategories(articles);
 
   return <BlogPageClient articles={articles} categories={categories} />;
 }

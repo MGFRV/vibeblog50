@@ -5,6 +5,7 @@ import remarkGfm from 'remark-gfm';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import CtaBanner from '@/components/CtaBanner';
 import FAQ from '@/components/FAQ';
 import RelatedArticles from '@/components/RelatedArticles';
 import SchemaOrg from '@/components/SchemaOrg';
@@ -229,6 +230,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         </div>
       </article>
 
+      <CtaBanner />
       <FAQ items={article.faq} />
       <RelatedArticles articles={related} />
     </>
