@@ -8,7 +8,7 @@ import type { ArticleFrontmatter } from '@/lib/types';
 
 interface BlogPageClientProps {
   articles: ArticleFrontmatter[];
-  categories: string[];
+  categories: Array<{ name: string; count: number }>;
 }
 
 export default function BlogPageClient({ articles, categories }: BlogPageClientProps) {
