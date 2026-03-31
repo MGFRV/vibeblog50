@@ -18,9 +18,4 @@ export interface Article extends ArticleFrontmatter {
   content: string; // MDX-контент без frontmatter
 }
 
-export type Category =
-  | 'Выбор оборудования'
-  | 'Процесс закупки'
-  | 'Работа с поставщиками'
-  | 'Документация и договоры'
-  | 'Ошибки и лайфхаки';
+export type Category = string;

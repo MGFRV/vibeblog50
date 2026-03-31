@@ -1,7 +1,10 @@
 import Link from 'next/link';
-import { CATEGORIES } from '@/lib/constants';
+import { getAllArticles } from '@/lib/articles';
+import { buildCategories } from '@/lib/categories';
 
 export default function Footer() {
+  const categories = buildCategories(getAllArticles());
+
   return (
     <footer className="mt-16 bg-text text-white">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3 md:px-6">
@@ -17,7 +20,7 @@ export default function Footer() {
         <div>
           <h3 className="text-sm font-bold uppercase tracking-wide text-white/90">Категории</h3>
           <ul className="mt-3 space-y-2 text-sm text-white/70">
-            {CATEGORIES.map((category) => (
+            {categories.map((category) => (
               <li key={category.slug}>
                 <Link href={`/blog?category=${category.slug}`} className="hover:text-white">
                   {category.name}

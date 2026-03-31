@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import ArticleCard from '@/components/ArticleCard';
-import { CATEGORIES } from '@/lib/constants';
-import { getAllArticles, getArticlesByCategory } from '@/lib/articles';
+import { getAllArticles } from '@/lib/articles';
+import { buildCategories } from '@/lib/categories';
 
 export default function HomePage() {
   const allArticles = getAllArticles();
   const latestArticles = allArticles.slice(0, 6);
+  const categories = buildCategories(allArticles);
 
   return (
     <div className="space-y-14">
@@ -40,8 +41,8 @@ export default function HomePage() {
       <section>
         <h2 className="text-2xl font-bold text-primary">Категории</h2>
         <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {CATEGORIES.map((category) => {
-            const total = getArticlesByCategory(category.name).length;
+          {categories.map((category) => {
+            const total = category.count;
 
             return (
               <article key={category.slug} className="rounded-lg bg-surface p-5 shadow-sm">

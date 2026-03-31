@@ -1,7 +1,7 @@
 'use client';
 
 interface CategoryFilterProps {
-  categories: Array<{ name: string; count: number }>;
+  categories: Array<{ name: string; slug: string; count: number }>;
   active: string;
   onChange: (cat: string) => void;
 }

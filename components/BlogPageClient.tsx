@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import SearchBar from '@/components/SearchBar';
@@ -8,12 +8,19 @@ import type { ArticleFrontmatter } from '@/lib/types';
 
 interface BlogPageClientProps {
   articles: ArticleFrontmatter[];
-  categories: Array<{ name: string; count: number }>;
+  categories: Array<{ name: string; slug: string; count: number }>;
 }
 
 export default function BlogPageClient({ articles, categories }: BlogPageClientProps) {
   const [activeCategory, setActiveCategory] = useState('Все');
   const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const categoryFromQuery = searchParams.get('category');
+    const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
+    setActiveCategory(activeFromQuery);
+  }, [categories]);
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
