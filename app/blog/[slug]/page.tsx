@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MDXRemote } from 'next-mdx-remote/rsc';
+import remarkGfm from 'remark-gfm';
 import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import rehypeSlug from 'rehype-slug';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -21,6 +22,14 @@ interface Heading {
   text: string;
   level: number;
 }
+
+const formatDate = (dateStr: string) => {
+  return new Date(dateStr).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+};
 
 function slugify(text: string) {
   return text
@@ -60,7 +69,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
 
   if (!article) {
     return {
-      title: 'Статья не найдена | ЗакупкиПро'
+      title: 'Статья не найдена | ПодборОборудования'
     };
   }
 
@@ -72,12 +81,33 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     alternates: {
       canonical
     },
+    robots: {
+      index: true,
+      follow: true
+    },
     openGraph: {
       title: article.title,
       description: article.description,
       url: canonical,
       siteName: SITE_NAME,
-      type: 'article'
+      locale: 'ru_RU',
+      type: 'article',
+      publishedTime: article.date,
+      modifiedTime: article.date,
+      images: [
+        {
+          url: `${SITE_URL}/og-default.svg`,
+          width: 1200,
+          height: 630,
+          alt: article.title
+        }
+      ]
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: article.title,
+      description: article.description,
+      images: [`${SITE_URL}/og-default.svg`]
     }
   };
 }
@@ -89,6 +119,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
+  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
   const headings = extractHeadings(article.content);
   const related = getRelatedArticles(article.slug, article.category, 3).map(({ content: _content, ...item }) => item);
 
@@ -98,15 +129,45 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     headline: article.title,
     description: article.description,
     datePublished: article.date,
+    dateModified: article.date,
     author: {
       '@type': 'Organization',
       name: AUTHOR
     },
     publisher: {
       '@type': 'Organization',
-      name: SITE_NAME
+      name: SITE_NAME,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${SITE_URL}/favicon.svg`
+      }
     },
-    mainEntityOfPage: `${SITE_URL}/blog/${article.slug}`
+    mainEntityOfPage: articleUrl
+  };
+
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Главная',
+        item: `${SITE_URL}/`
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Блог',
+        item: `${SITE_URL}/blog`
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: article.title,
+        item: articleUrl
+      }
+    ]
   };
 
   const breadcrumbs = [
@@ -119,20 +180,21 @@ export default function ArticlePage({ params }: ArticlePageProps) {
   return (
     <>
       <SchemaOrg data={articleSchema} />
+      <SchemaOrg data={breadcrumbSchema} />
       <Breadcrumbs items={breadcrumbs} />
 
       <article>
         <h1 className="text-3xl font-bold text-primary md:text-4xl">{article.title}</h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-text/70">
-          <time dateTime={article.date}>{article.date}</time>
+          <time dateTime={article.date}>{formatDate(article.date)}</time>
           <span>•</span>
           <span>{article.readingTime} мин чтения</span>
           <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">{article.category}</span>
         </div>
 
         <div className="mt-5">
-          <ShareButtons title={article.title} url={`${SITE_URL}/blog/${article.slug}`} />
+          <ShareButtons title={article.title} url={articleUrl} />
         </div>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
@@ -140,11 +202,12 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             <div className="lg:hidden">
               <TableOfContents headings={headings} />
             </div>
-            <div className="prose max-w-none prose-headings:font-bold prose-headings:text-primary">
+            <div className="prose prose-lg max-w-none prose-headings:text-[#0F4C3A] prose-a:text-[#C87533] prose-a:underline prose-strong:text-[#1A2E26]">
               <MDXRemote
                 source={article.content}
                 options={{
                   mdxOptions: {
+                    remarkPlugins: [remarkGfm],
                     rehypePlugins: [
                       rehypeSlug,
                       [
