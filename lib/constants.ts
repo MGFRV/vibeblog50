@@ -31,5 +31,10 @@ export const CATEGORIES: { name: Category; slug: string; description: string }[]
     name: 'Ошибки и лайфхаки',
     slug: 'oshibki-i-layfkhaki',
     description: 'Типичные ошибки закупщиков, чек-листы, KPI, инструменты'
+  },
+  {
+    name: 'Запасные части и сервис',
+    slug: 'запасные-части-и-сервис',
+    description: 'Как найти и выбрать запасные части для ремонта и обслуживания станков'
   }
 ];
