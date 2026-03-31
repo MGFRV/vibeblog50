@@ -1,8 +1,11 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import { Suspense } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import ScrollToTop from '@/components/ScrollToTop';
 import SchemaOrg from '@/components/SchemaOrg';
+import YandexMetrika from '@/components/YandexMetrika';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import './globals.css';
 
@@ -17,8 +20,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
   description: SITE_DESCRIPTION,
+  verification: {
+    yandex: 'ceaf90c58a285db7'
+  },
   alternates: {
-    canonical: '/'
+    canonical: '/',
+    types: {
+      'application/rss+xml': '/rss.xml'
+    }
   },
   robots: {
     index: true,
@@ -79,6 +88,10 @@ export default function RootLayout({
         <Header />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 md:px-6">{children}</main>
         <Footer />
+        <ScrollToTop />
+        <Suspense fallback={null}>
+          <YandexMetrika />
+        </Suspense>
       </body>
     </html>
   );

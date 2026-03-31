@@ -23,6 +23,14 @@ interface Heading {
   level: number;
 }
 
+const formatDate = (dateStr: string) => {
+  return new Date(dateStr).toLocaleDateString('ru-RU', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+};
+
 function slugify(text: string) {
   return text
     .toLowerCase()
@@ -179,7 +187,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         <h1 className="text-3xl font-bold text-primary md:text-4xl">{article.title}</h1>
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-text/70">
-          <time dateTime={article.date}>{article.date}</time>
+          <time dateTime={article.date}>{formatDate(article.date)}</time>
           <span>•</span>
           <span>{article.readingTime} мин чтения</span>
           <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">{article.category}</span>
