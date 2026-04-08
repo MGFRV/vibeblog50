@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import ArticleCard from '@/components/ArticleCard';
+import CtaBanner from '@/components/CtaBanner';
 import { getAllArticles } from '@/lib/articles';
 import { buildCategories } from '@/lib/categories';
 
@@ -11,16 +12,32 @@ export default function HomePage() {
   return (
     <div className="space-y-14">
       <section className="rounded-2xl bg-primary px-6 py-12 text-white md:px-10">
+        <p className="mb-3 text-xs font-medium uppercase tracking-widest text-white/60">
+          Проект компании «Эффективное производство» · cnc360.ru
+        </p>
         <h1 className="max-w-3xl text-3xl font-bold md:text-4xl">Всё о закупках промышленного оборудования</h1>
         <p className="mt-4 max-w-2xl text-white/85 md:text-lg">
           Экспертные статьи, чек-листы и инструкции для специалистов по снабжению
         </p>
-        <Link
-          href="/blog"
-          className="mt-8 inline-flex rounded-md bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
-        >
-          Читать блог
-        </Link>
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+          <Link
+            href="/blog"
+            className="inline-flex rounded-md bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
+          >
+            Читать блог
+          </Link>
+          <a
+            href="https://cnc360.ru"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1 rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+          >
+            Каталог запчастей cnc360.ru
+            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M7 17L17 7M17 7H7M17 7v10" />
+            </svg>
+          </a>
+        </div>
       </section>
 
       <section>
@@ -57,6 +74,8 @@ export default function HomePage() {
           })}
         </div>
       </section>
+
+      <CtaBanner />
     </div>
   );
 }
