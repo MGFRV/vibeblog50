@@ -3,6 +3,16 @@
 import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { CNC360_CANONICAL_URL, isCnc360Hostname, toCanonicalCnc360Url } from '@/lib/cnc360';
+
+const METRIKA_ID = 108317503;
+const CNC360_GOAL = 'click_cnc360_outbound';
+
+declare global {
+  interface Window {
+    ym?: (...args: unknown[]) => void;
+  }
+}
 
 const METRIKA_ID = 108317503;
 const CNC360_GOAL = 'click_cnc360_outbound';
@@ -71,7 +81,7 @@ export default function YandexMetrika() {
         return;
       }
 
-      const nextHref = withCnc360Utm(href);
+      const nextHref = toCanonicalCnc360Url(href, window.location.origin);
       if (nextHref !== href) {
         anchor.setAttribute('href', nextHref);
       }
@@ -96,9 +106,9 @@ export default function YandexMetrika() {
 
       try {
         const parsed = new URL(href, window.location.origin);
-        if (parsed.hostname.toLowerCase().endsWith('cnc360.ru')) {
+        if (isCnc360Hostname(parsed.hostname)) {
           window.ym?.(METRIKA_ID, 'reachGoal', CNC360_GOAL, {
-            href: parsed.toString()
+            href: CNC360_CANONICAL_URL
           });
         }
       } catch {

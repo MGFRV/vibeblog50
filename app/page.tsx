@@ -3,6 +3,7 @@ import ArticleCard from '@/components/ArticleCard';
 import CtaBanner from '@/components/CtaBanner';
 import { getAllArticles } from '@/lib/articles';
 import { buildCategories } from '@/lib/categories';
+import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
 
 export default function HomePage() {
   const allArticles = getAllArticles();
@@ -27,7 +28,7 @@ export default function HomePage() {
             Читать блог
           </Link>
           <a
-            href="https://cnc360.ru"
+            href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1 rounded-md border border-white/30 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
