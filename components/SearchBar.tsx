@@ -31,6 +31,11 @@ export default function SearchBar({ articles, query, onQueryChange }: SearchBarP
   }, [debouncedQuery, inputValue, query]);
 
   useEffect(() => {
+    setInputValue(query);
+    setDebouncedQuery(query.trim().toLowerCase());
+  }, [query]);
+
+  useEffect(() => {
     const timeout = setTimeout(() => {
       const nextQuery = inputValue.trim().toLowerCase();
 
