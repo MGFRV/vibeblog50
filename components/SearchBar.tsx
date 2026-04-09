@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 import type { ArticleFrontmatter } from '@/lib/types';
 
 interface SearchBarProps {
@@ -11,16 +11,25 @@ interface SearchBarProps {
   onSearchSubmit?: (query: string) => void;
 }
 
-export default function SearchBar({
-  articles,
-  query,
-  onQueryChange,
-  onSearchSubmit,
-}: SearchBarProps) {
-  const containerRef = useRef<HTMLDivElement | null>(null);
+export default function SearchBar({ articles, query, onQueryChange, onSearchSubmit }: SearchBarProps) {
+  const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState(query);
   const [debouncedQuery, setDebouncedQuery] = useState(query.trim().toLowerCase());
   const [isOpen, setIsOpen] = useState(false);
+  const lastEmittedQueryRef = useRef(query.trim().toLowerCase());
+
+  useEffect(() => {
+    if (query !== inputValue) {
+      setInputValue(query);
+    }
+
+    const normalizedQuery = query.trim().toLowerCase();
+    if (normalizedQuery !== debouncedQuery) {
+      setDebouncedQuery(normalizedQuery);
+    }
+
+    lastEmittedQueryRef.current = normalizedQuery;
+  }, [debouncedQuery, inputValue, query]);
 
   useEffect(() => {
     setInputValue(query);
@@ -30,12 +39,19 @@ export default function SearchBar({
   useEffect(() => {
     const timeout = setTimeout(() => {
       const nextQuery = inputValue.trim().toLowerCase();
-      setDebouncedQuery(nextQuery);
-      onQueryChange?.(nextQuery);
+
+      if (nextQuery !== debouncedQuery) {
+        setDebouncedQuery(nextQuery);
+      }
+
+      if (nextQuery !== lastEmittedQueryRef.current) {
+        lastEmittedQueryRef.current = nextQuery;
+        onQueryChange?.(nextQuery);
+      }
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [inputValue, onQueryChange]);
+  }, [debouncedQuery, inputValue, onQueryChange]);
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
@@ -63,17 +79,37 @@ export default function SearchBar({
 
   const showResults = isOpen && Boolean(inputValue.trim()) && results.length > 0;
 
-  function submitSearch() {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     const normalized = inputValue.trim().toLowerCase();
-    onQueryChange?.(normalized);
+    if (normalized !== lastEmittedQueryRef.current) {
+      lastEmittedQueryRef.current = normalized;
+      onQueryChange?.(normalized);
+    }
+
     onSearchSubmit?.(normalized);
-    setIsOpen(false);
-  }
+  };
+
+  return (
+    <div className="relative" ref={containerRef}>
+      <form className="relative" onSubmit={handleSubmit}>
+        <svg
+          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text/40"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <path d="m20 20-3.5-3.5" />
+        </svg>
 
   return (
     <div ref={containerRef} className="relative">
       <div className="relative flex gap-2">
         <input
+          type="search"
           value={inputValue}
           onChange={(event) => {
             setInputValue(event.target.value);
@@ -87,17 +123,16 @@ export default function SearchBar({
             }
           }}
           placeholder="Поиск статей..."
-          className="w-full rounded-lg border border-primary/20 bg-surface py-2 pl-10 pr-3 text-sm text-text outline-none ring-accent/30 transition focus:border-accent focus:ring"
+          className="w-full rounded-lg border border-primary/20 bg-surface py-2 pl-10 pr-28 text-sm text-text outline-none ring-accent/30 transition focus:border-accent focus:ring"
         />
 
         <button
-          type="button"
-          onClick={submitSearch}
-          className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+          type="submit"
+          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-primary/90"
         >
-          Искать
+          Найти
         </button>
-      </div>
+      </form>
 
       {showResults ? (
         <ul className="absolute z-10 mt-2 w-full rounded-lg border bg-white shadow-lg">

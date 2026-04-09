@@ -1,7 +1,6 @@
 'use client';
 
-import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
@@ -19,34 +18,46 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const [activeCategory, setActiveCategory] = useState('Все');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const updateUrlQuery = useCallback(
+    (nextQuery: string) => {
+      const normalized = nextQuery.trim().toLowerCase();
+      const nextParams = new URLSearchParams(searchParams.toString());
+
+      if (normalized) {
+        nextParams.set('q', normalized);
+      } else {
+        nextParams.delete('q');
+      }
+
+      const nextSearch = nextParams.toString();
+      const currentSearch = searchParams.toString();
+
+      if (nextSearch === currentSearch) {
+        return;
+      }
+
+      const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
+      router.replace(nextUrl, { scroll: false });
+    },
+    [pathname, router, searchParams]
+  );
+
   useEffect(() => {
     const categoryFromQuery = searchParams.get('category');
-    const activeFromQuery =
-      categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
-    const queryFromUrl = searchParams.get('q') ?? '';
+    const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
+    const queryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
 
-    setActiveCategory(activeFromQuery);
-    setSearchQuery(queryFromUrl);
-  }, [categories, searchParams]);
-
-  function updateUrlQuery(nextQuery: string) {
-    const nextParams = new URLSearchParams(searchParams.toString());
-
-    if (nextQuery) {
-      nextParams.set('q', nextQuery);
-    } else {
-      nextParams.delete('q');
+    if (activeFromQuery !== activeCategory) {
+      setActiveCategory(activeFromQuery);
     }
 
-    const nextSearch = nextParams.toString();
-    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
-
-    router.replace(nextUrl, { scroll: false });
-  }
+    if (queryFromUrl !== searchQuery) {
+      setSearchQuery(queryFromUrl);
+    }
+  }, [activeCategory, categories, searchParams, searchQuery]);
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -70,17 +81,38 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
     <div className="space-y-6">
       <h1 className="text-3xl font-bold">Блог</h1>
 
-      <p className="text-slate-600">
-        Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка
-        совместимости» до «срочная закупка».
-      </p>
+      <div className="mt-4 rounded-xl border border-primary/10 bg-surface p-4 md:p-5">
+        <p className="text-sm text-text/75">
+          Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка совместимости» до
+          «срочная закупка».
+        </p>
 
-      <SearchBar
-        articles={articles}
-        query={searchQuery}
-        onQueryChange={setSearchQuery}
-        onSearchSubmit={updateUrlQuery}
-      />
+        <div className="mt-3 flex flex-wrap gap-2">
+          {quickQueries.map((queryItem) => (
+            <button
+              key={queryItem}
+              type="button"
+              onClick={() => {
+                const normalized = queryItem.trim().toLowerCase();
+                setSearchQuery(normalized);
+                updateUrlQuery(normalized);
+              }}
+              className="rounded-full border border-primary/15 bg-background px-3 py-1 text-xs font-medium text-text/80 transition hover:border-accent/40 hover:text-accent"
+            >
+              {queryItem}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <SearchBar
+          articles={articles}
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          onSearchSubmit={updateUrlQuery}
+        />
+      </div>
 
       <div className="flex flex-wrap gap-2">
         {quickQueries.map((queryItem) => (
