@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { getAllArticles } from '@/lib/articles';
 import { buildCategories } from '@/lib/categories';
+import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
 
 export default function Footer() {
   const categories = buildCategories(getAllArticles());
@@ -36,7 +37,7 @@ export default function Footer() {
             Серводвигатели, энкодеры, платы управления, дисплеи для станков Fanuc, Siemens, Heidenhain.
           </p>
           <a
-            href="https://cnc360.ru"
+            href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-accent hover:text-accent/80"
@@ -62,7 +63,7 @@ export default function Footer() {
           <p className="text-sm text-white/70">
             Проект компании{' '}
             <a
-              href="https://cnc360.ru"
+              href={CNC360_CANONICAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-white hover:text-accent"
@@ -72,7 +73,7 @@ export default function Footer() {
             — поставка запчастей для станков с ЧПУ с 2005 года. Склад в Москве и Смоленске.
           </p>
           <a
-            href="https://cnc360.ru"
+            href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#a8612a]"
