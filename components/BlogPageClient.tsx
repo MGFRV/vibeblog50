@@ -25,13 +25,23 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
   useEffect(() => {
     const categoryFromQuery = searchParams.get('category');
     const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
-    const queryFromUrl = searchParams.get('q') ?? '';
+    const queryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
 
-    setActiveCategory(activeFromQuery);
-    setSearchQuery(queryFromUrl);
-  }, [categories, searchParams]);
+    if (activeFromQuery !== activeCategory) {
+      setActiveCategory(activeFromQuery);
+    }
+
+    if (queryFromUrl !== searchQuery) {
+      setSearchQuery(queryFromUrl);
+    }
+  }, [activeCategory, categories, searchParams, searchQuery]);
 
   useEffect(() => {
+    const currentQueryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
+    if (searchQuery === currentQueryFromUrl) {
+      return;
+    }
+
     const nextParams = new URLSearchParams(searchParams.toString());
 
     if (searchQuery) {
@@ -41,12 +51,14 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
     }
 
     const nextSearch = nextParams.toString();
-    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
-    const currentUrl = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
+    const currentSearch = searchParams.toString();
 
-    if (nextUrl !== currentUrl) {
-      router.replace(nextUrl, { scroll: false });
+    if (nextSearch === currentSearch) {
+      return;
     }
+
+    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
+    router.replace(nextUrl, { scroll: false });
   }, [pathname, router, searchParams, searchQuery]);
 
   const filteredArticles = useMemo(() => {

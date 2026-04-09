@@ -14,33 +14,6 @@ declare global {
   }
 }
 
-function withCnc360Utm(rawHref: string): string {
-  try {
-    const parsed = new URL(rawHref, window.location.origin);
-    const host = parsed.hostname.toLowerCase();
-
-    if (!host.endsWith('cnc360.ru')) {
-      return rawHref;
-    }
-
-    if (!parsed.searchParams.has('utm_source')) {
-      parsed.searchParams.set('utm_source', 'podbor');
-    }
-
-    if (!parsed.searchParams.has('utm_medium')) {
-      parsed.searchParams.set('utm_medium', 'referral');
-    }
-
-    if (rawHref.startsWith('/')) {
-      return `${parsed.pathname}${parsed.search}${parsed.hash}`;
-    }
-
-    return parsed.toString();
-  } catch {
-    return rawHref;
-  }
-}
-
 export default function YandexMetrika() {
   const pathname = usePathname();
   const searchParams = useSearchParams();

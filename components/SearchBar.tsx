@@ -15,6 +15,20 @@ export default function SearchBar({ articles, query, onQueryChange }: SearchBarP
   const [inputValue, setInputValue] = useState(query);
   const [debouncedQuery, setDebouncedQuery] = useState(query.trim().toLowerCase());
   const [isOpen, setIsOpen] = useState(false);
+  const lastEmittedQueryRef = useRef(query.trim().toLowerCase());
+
+  useEffect(() => {
+    if (query !== inputValue) {
+      setInputValue(query);
+    }
+
+    const normalizedQuery = query.trim().toLowerCase();
+    if (normalizedQuery !== debouncedQuery) {
+      setDebouncedQuery(normalizedQuery);
+    }
+
+    lastEmittedQueryRef.current = normalizedQuery;
+  }, [debouncedQuery, inputValue, query]);
 
   useEffect(() => {
     setInputValue(query);
@@ -24,12 +38,19 @@ export default function SearchBar({ articles, query, onQueryChange }: SearchBarP
   useEffect(() => {
     const timeout = setTimeout(() => {
       const nextQuery = inputValue.trim().toLowerCase();
-      setDebouncedQuery(nextQuery);
-      onQueryChange?.(nextQuery);
+
+      if (nextQuery !== debouncedQuery) {
+        setDebouncedQuery(nextQuery);
+      }
+
+      if (nextQuery !== lastEmittedQueryRef.current) {
+        lastEmittedQueryRef.current = nextQuery;
+        onQueryChange?.(nextQuery);
+      }
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [inputValue, onQueryChange]);
+  }, [debouncedQuery, inputValue, onQueryChange]);
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
