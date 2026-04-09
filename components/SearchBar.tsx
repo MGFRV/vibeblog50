@@ -12,7 +12,12 @@ interface SearchBarProps {
   onSearchSubmit?: (query: string) => void;
 }
 
-export default function SearchBar({ articles, query, onQueryChange, onSearchSubmit }: SearchBarProps) {
+export default function SearchBar({
+  articles,
+  query,
+  onQueryChange,
+  onSearchSubmit,
+}: SearchBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState(query);
   const [debouncedQuery, setDebouncedQuery] = useState(query.trim().toLowerCase());
@@ -30,7 +35,7 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
     }
 
     lastEmittedQueryRef.current = normalizedQuery;
-  }, [debouncedQuery, inputValue, query]);
+  }, [query, inputValue, debouncedQuery]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -47,7 +52,7 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [debouncedQuery, inputValue, onQueryChange]);
+  }, [inputValue, debouncedQuery, onQueryChange]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -75,16 +80,21 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
 
   const showResults = isOpen && Boolean(inputValue.trim()) && results.length > 0;
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const submitSearch = () => {
     const normalized = inputValue.trim().toLowerCase();
+
     if (normalized !== lastEmittedQueryRef.current) {
       lastEmittedQueryRef.current = normalized;
       onQueryChange?.(normalized);
     }
 
     onSearchSubmit?.(normalized);
+    setIsOpen(false);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    submitSearch();
   };
 
   return (
@@ -101,9 +111,6 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
           <path d="m20 20-3.5-3.5" />
         </svg>
 
-  return (
-    <div ref={containerRef} className="relative">
-      <div className="relative flex gap-2">
         <input
           type="search"
           value={inputValue}
