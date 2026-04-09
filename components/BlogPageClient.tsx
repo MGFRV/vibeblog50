@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ArticleCard from '@/components/ArticleCard';
@@ -11,6 +12,8 @@ interface BlogPageClientProps {
   articles: ArticleFrontmatter[];
   categories: Array<{ name: string; slug: string; count: number }>;
 }
+
+const quickQueries = ['аналог', 'совместимость', 'срочная закупка', 'серводвигатели', 'чек-лист'];
 
 export default function BlogPageClient({ articles, categories }: BlogPageClientProps) {
   const router = useRouter();
@@ -68,7 +71,26 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
     <section>
       <h1 className="text-3xl font-bold text-primary">Блог</h1>
 
-      <div className="mt-6">
+      <div className="mt-4 rounded-xl border border-primary/10 bg-surface p-4 md:p-5">
+        <p className="text-sm text-text/75">
+          Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка совместимости» до
+          «срочная закупка».
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {quickQueries.map((queryItem) => (
+            <Link
+              key={queryItem}
+              href={`/blog?q=${encodeURIComponent(queryItem)}`}
+              className="rounded-full border border-primary/15 bg-background px-3 py-1 text-xs font-medium text-text/80 transition hover:border-accent/40 hover:text-accent"
+            >
+              {queryItem}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4">
         <SearchBar articles={articles} query={searchQuery} onQueryChange={setSearchQuery} />
       </div>
 
