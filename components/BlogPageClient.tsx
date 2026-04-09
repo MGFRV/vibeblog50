@@ -141,8 +141,8 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
 
       <CategoryFilter
         categories={categories}
-        activeCategory={activeCategory}
-        onCategoryChange={setActiveCategory}
+        active={activeCategory}
+        onChange={setActiveCategory}
       />
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
