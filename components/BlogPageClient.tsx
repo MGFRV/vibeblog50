@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import SearchBar from '@/components/SearchBar';
@@ -12,15 +13,38 @@ interface BlogPageClientProps {
 }
 
 export default function BlogPageClient({ articles, categories }: BlogPageClientProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState('Все');
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
     const categoryFromQuery = searchParams.get('category');
     const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
+    const queryFromUrl = searchParams.get('q') ?? '';
+
     setActiveCategory(activeFromQuery);
-  }, [categories]);
+    setSearchQuery(queryFromUrl);
+  }, [categories, searchParams]);
+
+  useEffect(() => {
+    const nextParams = new URLSearchParams(searchParams.toString());
+
+    if (searchQuery) {
+      nextParams.set('q', searchQuery);
+    } else {
+      nextParams.delete('q');
+    }
+
+    const nextSearch = nextParams.toString();
+    const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
+    const currentUrl = searchParams.toString() ? `${pathname}?${searchParams.toString()}` : pathname;
+
+    if (nextUrl !== currentUrl) {
+      router.replace(nextUrl, { scroll: false });
+    }
+  }, [pathname, router, searchParams, searchQuery]);
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -45,7 +69,7 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
       <h1 className="text-3xl font-bold text-primary">Блог</h1>
 
       <div className="mt-6">
-        <SearchBar articles={articles} onQueryChange={setSearchQuery} />
+        <SearchBar articles={articles} query={searchQuery} onQueryChange={setSearchQuery} />
       </div>
 
       <div className="mt-4">
