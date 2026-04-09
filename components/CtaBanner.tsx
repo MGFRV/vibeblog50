@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
 
 export default function CtaBanner() {
   return (
@@ -21,7 +22,7 @@ export default function CtaBanner() {
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
-            href="https://cnc360.ru"
+            href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#C87533] px-6 py-3 font-semibold text-white transition hover:bg-[#a8612a]"
