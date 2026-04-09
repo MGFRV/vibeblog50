@@ -19,47 +19,34 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
+
   const [activeCategory, setActiveCategory] = useState('Все');
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     const categoryFromQuery = searchParams.get('category');
-    const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
-    const queryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
+    const activeFromQuery =
+      categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
+    const queryFromUrl = searchParams.get('q') ?? '';
 
-    if (activeFromQuery !== activeCategory) {
-      setActiveCategory(activeFromQuery);
-    }
+    setActiveCategory(activeFromQuery);
+    setSearchQuery(queryFromUrl);
+  }, [categories, searchParams]);
 
-    if (queryFromUrl !== searchQuery) {
-      setSearchQuery(queryFromUrl);
-    }
-  }, [activeCategory, categories, searchParams, searchQuery]);
-
-  useEffect(() => {
-    const currentQueryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
-    if (searchQuery === currentQueryFromUrl) {
-      return;
-    }
-
+  function updateUrlQuery(nextQuery: string) {
     const nextParams = new URLSearchParams(searchParams.toString());
 
-    if (searchQuery) {
-      nextParams.set('q', searchQuery);
+    if (nextQuery) {
+      nextParams.set('q', nextQuery);
     } else {
       nextParams.delete('q');
     }
 
     const nextSearch = nextParams.toString();
-    const currentSearch = searchParams.toString();
-
-    if (nextSearch === currentSearch) {
-      return;
-    }
-
     const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
+
     router.replace(nextUrl, { scroll: false });
-  }, [pathname, router, searchParams, searchQuery]);
+  }
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -80,47 +67,54 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
   }, [activeCategory, articles, searchQuery]);
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold text-primary">Блог</h1>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Блог</h1>
 
-      <div className="mt-4 rounded-xl border border-primary/10 bg-surface p-4 md:p-5">
-        <p className="text-sm text-text/75">
-          Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка совместимости» до
-          «срочная закупка».
-        </p>
+      <p className="text-slate-600">
+        Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка
+        совместимости» до «срочная закупка».
+      </p>
 
-        <div className="mt-3 flex flex-wrap gap-2">
-          {quickQueries.map((queryItem) => (
-            <Link
-              key={queryItem}
-              href={`/blog?q=${encodeURIComponent(queryItem)}`}
-              className="rounded-full border border-primary/15 bg-background px-3 py-1 text-xs font-medium text-text/80 transition hover:border-accent/40 hover:text-accent"
-            >
-              {queryItem}
-            </Link>
-          ))}
-        </div>
+      <SearchBar
+        articles={articles}
+        query={searchQuery}
+        onQueryChange={setSearchQuery}
+        onSearchSubmit={updateUrlQuery}
+      />
+
+      <div className="flex flex-wrap gap-2">
+        {quickQueries.map((queryItem) => (
+          <button
+            key={queryItem}
+            type="button"
+            onClick={() => {
+              setSearchQuery(queryItem);
+              updateUrlQuery(queryItem);
+            }}
+            className="rounded-full border px-3 py-1 text-sm hover:bg-slate-50"
+          >
+            {queryItem}
+          </button>
+        ))}
       </div>
 
-      <div className="mt-4">
-        <SearchBar articles={articles} query={searchQuery} onQueryChange={setSearchQuery} />
-      </div>
+      <CategoryFilter
+        categories={categories}
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+      />
 
-      <div className="mt-4">
-        <CategoryFilter categories={categories} active={activeCategory} onChange={setActiveCategory} />
-      </div>
-
-      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredArticles.map((article) => (
           <ArticleCard key={article.slug} article={article} />
         ))}
       </div>
 
       {filteredArticles.length === 0 ? (
-        <p className="mt-8 rounded-lg border border-primary/10 bg-surface p-4 text-sm text-text/70">
+        <div className="rounded-lg border border-dashed p-6 text-slate-600">
           По вашему запросу ничего не найдено. Попробуйте изменить категорию или поисковую фразу.
-        </p>
+        </div>
       ) : null}
-    </section>
+    </div>
   );
 }
