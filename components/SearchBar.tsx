@@ -6,24 +6,46 @@ import type { ArticleFrontmatter } from '@/lib/types';
 
 interface SearchBarProps {
   articles: ArticleFrontmatter[];
+  query: string;
   onQueryChange?: (query: string) => void;
 }
 
-export default function SearchBar({ articles, onQueryChange }: SearchBarProps) {
+export default function SearchBar({ articles, query, onQueryChange }: SearchBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [query, setQuery] = useState('');
-  const [debouncedQuery, setDebouncedQuery] = useState('');
+  const [inputValue, setInputValue] = useState(query);
+  const [debouncedQuery, setDebouncedQuery] = useState(query.trim().toLowerCase());
   const [isOpen, setIsOpen] = useState(false);
+  const lastEmittedQueryRef = useRef(query.trim().toLowerCase());
+
+  useEffect(() => {
+    if (query !== inputValue) {
+      setInputValue(query);
+    }
+
+    const normalizedQuery = query.trim().toLowerCase();
+    if (normalizedQuery !== debouncedQuery) {
+      setDebouncedQuery(normalizedQuery);
+    }
+
+    lastEmittedQueryRef.current = normalizedQuery;
+  }, [debouncedQuery, inputValue, query]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      const nextQuery = query.trim().toLowerCase();
-      setDebouncedQuery(nextQuery);
-      onQueryChange?.(nextQuery);
+      const nextQuery = inputValue.trim().toLowerCase();
+
+      if (nextQuery !== debouncedQuery) {
+        setDebouncedQuery(nextQuery);
+      }
+
+      if (nextQuery !== lastEmittedQueryRef.current) {
+        lastEmittedQueryRef.current = nextQuery;
+        onQueryChange?.(nextQuery);
+      }
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [onQueryChange, query]);
+  }, [debouncedQuery, inputValue, onQueryChange]);
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
@@ -49,7 +71,7 @@ export default function SearchBar({ articles, onQueryChange }: SearchBarProps) {
       .slice(0, 5);
   }, [articles, debouncedQuery]);
 
-  const showResults = isOpen && Boolean(query.trim()) && results.length > 0;
+  const showResults = isOpen && Boolean(inputValue.trim()) && results.length > 0;
 
   return (
     <div className="relative" ref={containerRef}>
@@ -67,9 +89,9 @@ export default function SearchBar({ articles, onQueryChange }: SearchBarProps) {
 
         <input
           type="search"
-          value={query}
+          value={inputValue}
           onChange={(event) => {
-            setQuery(event.target.value);
+            setInputValue(event.target.value);
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
