@@ -14,15 +14,6 @@ declare global {
   }
 }
 
-const METRIKA_ID = 108317503;
-const CNC360_GOAL = 'click_cnc360_outbound';
-
-declare global {
-  interface Window {
-    ym?: (...args: unknown[]) => void;
-  }
-}
-
 function withCnc360Utm(rawHref: string): string {
   try {
     const parsed = new URL(rawHref, window.location.origin);
