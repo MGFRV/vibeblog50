@@ -1,7 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import type React from 'react';
 import type { ArticleFrontmatter } from '@/lib/types';
 
 interface SearchBarProps {
@@ -32,11 +33,6 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
   }, [debouncedQuery, inputValue, query]);
 
   useEffect(() => {
-    setInputValue(query);
-    setDebouncedQuery(query.trim().toLowerCase());
-  }, [query]);
-
-  useEffect(() => {
     const timeout = setTimeout(() => {
       const nextQuery = inputValue.trim().toLowerCase();
 
@@ -54,11 +50,11 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
   }, [debouncedQuery, inputValue, onQueryChange]);
 
   useEffect(() => {
-    function handleOutsideClick(event: MouseEvent) {
+    const handleOutsideClick = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
         setIsOpen(false);
       }
-    }
+    };
 
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
@@ -79,7 +75,7 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
 
   const showResults = isOpen && Boolean(inputValue.trim()) && results.length > 0;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const normalized = inputValue.trim().toLowerCase();

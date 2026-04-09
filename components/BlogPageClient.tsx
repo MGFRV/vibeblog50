@@ -114,6 +114,15 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
         />
       </div>
 
+      <div className="mt-4">
+        <SearchBar
+          articles={articles}
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          onSearchSubmit={updateUrlQuery}
+        />
+      </div>
+
       <div className="flex flex-wrap gap-2">
         {quickQueries.map((queryItem) => (
           <button
