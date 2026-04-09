@@ -8,27 +8,19 @@ interface SearchBarProps {
   articles: ArticleFrontmatter[];
   query: string;
   onQueryChange?: (query: string) => void;
+  onSearchSubmit?: (query: string) => void;
 }
 
-export default function SearchBar({ articles, query, onQueryChange }: SearchBarProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
+export default function SearchBar({
+  articles,
+  query,
+  onQueryChange,
+  onSearchSubmit,
+}: SearchBarProps) {
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const [inputValue, setInputValue] = useState(query);
   const [debouncedQuery, setDebouncedQuery] = useState(query.trim().toLowerCase());
   const [isOpen, setIsOpen] = useState(false);
-  const lastEmittedQueryRef = useRef(query.trim().toLowerCase());
-
-  useEffect(() => {
-    if (query !== inputValue) {
-      setInputValue(query);
-    }
-
-    const normalizedQuery = query.trim().toLowerCase();
-    if (normalizedQuery !== debouncedQuery) {
-      setDebouncedQuery(normalizedQuery);
-    }
-
-    lastEmittedQueryRef.current = normalizedQuery;
-  }, [debouncedQuery, inputValue, query]);
 
   useEffect(() => {
     setInputValue(query);
@@ -38,19 +30,12 @@ export default function SearchBar({ articles, query, onQueryChange }: SearchBarP
   useEffect(() => {
     const timeout = setTimeout(() => {
       const nextQuery = inputValue.trim().toLowerCase();
-
-      if (nextQuery !== debouncedQuery) {
-        setDebouncedQuery(nextQuery);
-      }
-
-      if (nextQuery !== lastEmittedQueryRef.current) {
-        lastEmittedQueryRef.current = nextQuery;
-        onQueryChange?.(nextQuery);
-      }
+      setDebouncedQuery(nextQuery);
+      onQueryChange?.(nextQuery);
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [debouncedQuery, inputValue, onQueryChange]);
+  }, [inputValue, onQueryChange]);
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
@@ -78,44 +63,53 @@ export default function SearchBar({ articles, query, onQueryChange }: SearchBarP
 
   const showResults = isOpen && Boolean(inputValue.trim()) && results.length > 0;
 
-  return (
-    <div className="relative" ref={containerRef}>
-      <div className="relative">
-        <svg
-          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text/40"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-3.5-3.5" />
-        </svg>
+  function submitSearch() {
+    const normalized = inputValue.trim().toLowerCase();
+    onQueryChange?.(normalized);
+    onSearchSubmit?.(normalized);
+    setIsOpen(false);
+  }
 
+  return (
+    <div ref={containerRef} className="relative">
+      <div className="relative flex gap-2">
         <input
-          type="search"
           value={inputValue}
           onChange={(event) => {
             setInputValue(event.target.value);
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              submitSearch();
+            }
+          }}
           placeholder="Поиск статей..."
           className="w-full rounded-lg border border-primary/20 bg-surface py-2 pl-10 pr-3 text-sm text-text outline-none ring-accent/30 transition focus:border-accent focus:ring"
         />
+
+        <button
+          type="button"
+          onClick={submitSearch}
+          className="rounded-lg bg-primary px-4 py-2 text-sm font-medium text-white transition hover:opacity-90"
+        >
+          Искать
+        </button>
       </div>
 
       {showResults ? (
-        <ul className="absolute z-20 mt-2 w-full rounded-lg border border-primary/10 bg-surface p-2 shadow-sm">
+        <ul className="absolute z-10 mt-2 w-full rounded-lg border bg-white shadow-lg">
           {results.map((article) => (
             <li key={article.slug}>
               <Link
                 href={`/blog/${article.slug}`}
-                className="block rounded-md px-3 py-2 hover:bg-background"
                 onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 hover:bg-slate-50"
               >
-                <p className="text-sm font-semibold text-primary">{article.title}</p>
-                <p className="text-xs text-text/70">{article.description}</p>
+                <div className="text-sm font-medium">{article.title}</div>
+                <div className="mt-1 text-xs text-slate-500">{article.description}</div>
               </Link>
             </li>
           ))}
