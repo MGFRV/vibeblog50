@@ -107,7 +107,12 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
               event.preventDefault();
-              submitSearch();
+              const normalized = inputValue.trim().toLowerCase();
+              if (normalized !== lastEmittedQueryRef.current) {
+                lastEmittedQueryRef.current = normalized;
+                onQueryChange?.(normalized);
+              }
+              onSearchSubmit?.(normalized);
             }
           }}
           placeholder="Поиск статей..."
