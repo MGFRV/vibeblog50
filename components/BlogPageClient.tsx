@@ -50,14 +50,9 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
     const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
     const queryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
 
-    if (activeFromQuery !== activeCategory) {
-      setActiveCategory(activeFromQuery);
-    }
-
-    if (queryFromUrl !== searchQuery) {
-      setSearchQuery(queryFromUrl);
-    }
-  }, [activeCategory, categories, searchParams, searchQuery]);
+    setActiveCategory((prev) => (prev === activeFromQuery ? prev : activeFromQuery));
+    setSearchQuery((prev) => (prev === queryFromUrl ? prev : queryFromUrl));
+  }, [categories, searchParams]);
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -103,6 +98,15 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
             </button>
           ))}
         </div>
+      </div>
+
+      <div className="mt-4">
+        <SearchBar
+          articles={articles}
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          onSearchSubmit={updateUrlQuery}
+        />
       </div>
 
       <div className="mt-4">

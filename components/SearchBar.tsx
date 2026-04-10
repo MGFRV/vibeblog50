@@ -12,12 +12,7 @@ interface SearchBarProps {
   onSearchSubmit?: (query: string) => void;
 }
 
-export default function SearchBar({
-  articles,
-  query,
-  onQueryChange,
-  onSearchSubmit,
-}: SearchBarProps) {
+export default function SearchBar({ articles, query, onQueryChange, onSearchSubmit }: SearchBarProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [inputValue, setInputValue] = useState(query);
   const [debouncedQuery, setDebouncedQuery] = useState(query.trim().toLowerCase());
@@ -25,17 +20,12 @@ export default function SearchBar({
   const lastEmittedQueryRef = useRef(query.trim().toLowerCase());
 
   useEffect(() => {
-    if (query !== inputValue) {
-      setInputValue(query);
-    }
+    setInputValue(query);
 
     const normalizedQuery = query.trim().toLowerCase();
-    if (normalizedQuery !== debouncedQuery) {
-      setDebouncedQuery(normalizedQuery);
-    }
-
+    setDebouncedQuery(normalizedQuery);
     lastEmittedQueryRef.current = normalizedQuery;
-  }, [query, inputValue, debouncedQuery]);
+  }, [query]);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -52,7 +42,7 @@ export default function SearchBar({
     }, 300);
 
     return () => clearTimeout(timeout);
-  }, [inputValue, debouncedQuery, onQueryChange]);
+  }, [debouncedQuery, inputValue, onQueryChange]);
 
   useEffect(() => {
     const handleOutsideClick = (event: MouseEvent) => {
@@ -80,21 +70,16 @@ export default function SearchBar({
 
   const showResults = isOpen && Boolean(inputValue.trim()) && results.length > 0;
 
-  const submitSearch = () => {
-    const normalized = inputValue.trim().toLowerCase();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
 
+    const normalized = inputValue.trim().toLowerCase();
     if (normalized !== lastEmittedQueryRef.current) {
       lastEmittedQueryRef.current = normalized;
       onQueryChange?.(normalized);
     }
 
     onSearchSubmit?.(normalized);
-    setIsOpen(false);
-  };
-
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    submitSearch();
   };
 
   return (
