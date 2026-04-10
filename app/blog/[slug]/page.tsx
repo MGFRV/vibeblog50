@@ -193,13 +193,13 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
         <div className="mt-4 flex flex-wrap items-center gap-3 text-sm text-text/70">
           <time dateTime={article.date}>{formatDate(article.date)}</time>
-          <span>•</span>
+          <span>&bull;</span>
           <span>{article.readingTime} мин чтения</span>
           <span className="rounded-full bg-accent/10 px-3 py-1 text-xs font-semibold text-accent">{article.category}</span>
         </div>
 
         <div className="mt-5 flex flex-wrap items-center gap-4">
-          
+          <a
             href="/author/sergey/"
             className="flex items-center gap-3 rounded-lg border border-primary/10 bg-surface px-3 py-2 no-underline transition hover:border-primary/30"
           >
@@ -209,7 +209,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
             <div>
               <p className="text-xs text-text/50">Автор</p>
               <p className="text-sm font-semibold text-primary">Сергей С.</p>
-              <p className="text-xs text-text/60">Главный редактор · ПодборОборудования</p>
+              <p className="text-xs text-text/60">Главный редактор &middot; ПодборОборудования</p>
             </div>
           </a>
           <ShareButtons title={article.title} url={articleUrl} />
