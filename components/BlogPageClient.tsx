@@ -98,6 +98,18 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
             </button>
           ))}
         </div>
+<<<<<<< codex/audit-and-fix-yandex-metrica-integration-wq2wze
+      </div>
+
+      <div className="mt-4">
+        <SearchBar
+          articles={articles}
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          onSearchSubmit={updateUrlQuery}
+        />
+=======
+>>>>>>> main
       </div>
 
       <div className="mt-4">

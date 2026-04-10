@@ -11,7 +11,7 @@ import RelatedArticles from '@/components/RelatedArticles';
 import SchemaOrg from '@/components/SchemaOrg';
 import ShareButtons from '@/components/ShareButtons';
 import TableOfContents from '@/components/TableOfContents';
-import { AUTHOR, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { SITE_NAME, SITE_URL } from '@/lib/constants';
 import { getAllSlugs, getArticleBySlug, getRelatedArticles } from '@/lib/articles';
 
 interface ArticlePageProps {
@@ -132,12 +132,16 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     datePublished: article.date,
     dateModified: article.date,
     author: {
-      '@type': 'Organization',
-      name: AUTHOR
+      '@type': 'Person',
+      name: 'Сергей С.',
+      jobTitle: 'Главный редактор',
+      url: `${SITE_URL}/author/sergey/`,
+      knowsAbout: ['ЧПУ', 'станки', 'запчасти для станков', 'комплектующие ЧПУ']
     },
     publisher: {
       '@type': 'Organization',
       name: SITE_NAME,
+      url: SITE_URL,
       logo: {
         '@type': 'ImageObject',
         url: `${SITE_URL}/favicon.svg`

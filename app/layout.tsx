@@ -20,9 +20,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: 'ПодборОборудования — Блог о закупках промышленного оборудования',
   description: SITE_DESCRIPTION,
-  verification: {
-    yandex: 'ceaf90c58a285db7'
-  },
   alternates: {
     canonical: '/',
     types: {
@@ -75,16 +72,40 @@ export default function RootLayout({
     }
   };
 
+
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'ПодборОборудования',
+    description: 'Справочный проект ООО «Эффективное производство» по подбору запчастей и комплектующих для станков с ЧПУ',
+    url: SITE_URL,
+    parentOrganization: {
+      '@type': 'Organization',
+      name: 'ООО «Эффективное производство»',
+      url: 'https://cnc360.ru',
+      foundingDate: '1992',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'ул. Коненкова, д. 4А',
+        addressLocality: 'Смоленск',
+        postalCode: '214000',
+        addressCountry: 'RU'
+      }
+    }
+  };
+
   return (
     <html lang="ru">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
+        <meta name="yandex" content="index, follow" />
         <link rel="canonical" href={SITE_URL + '/'} />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={`${inter.className} min-h-screen bg-background text-text antialiased`}>
         <SchemaOrg data={webSiteSchema} />
+        <SchemaOrg data={organizationSchema} />
         <Header />
         <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-8 md:px-6">{children}</main>
         <Footer />
