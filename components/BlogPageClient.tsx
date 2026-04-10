@@ -109,31 +109,6 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
         />
       </div>
 
-      <div className="mt-4">
-        <SearchBar
-          articles={articles}
-          query={searchQuery}
-          onQueryChange={setSearchQuery}
-          onSearchSubmit={updateUrlQuery}
-        />
-      </div>
-
-      <div className="flex flex-wrap gap-2">
-        {quickQueries.map((queryItem) => (
-          <button
-            key={queryItem}
-            type="button"
-            onClick={() => {
-              setSearchQuery(queryItem);
-              updateUrlQuery(queryItem);
-            }}
-            className="rounded-full border px-3 py-1 text-sm hover:bg-slate-50"
-          >
-            {queryItem}
-          </button>
-        ))}
-      </div>
-
       <CategoryFilter
         categories={categories}
         active={activeCategory}
