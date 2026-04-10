@@ -104,6 +104,17 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
             setIsOpen(true);
           }}
           onFocus={() => setIsOpen(true)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault();
+              const normalized = inputValue.trim().toLowerCase();
+              if (normalized !== lastEmittedQueryRef.current) {
+                lastEmittedQueryRef.current = normalized;
+                onQueryChange?.(normalized);
+              }
+              onSearchSubmit?.(normalized);
+            }
+          }}
           placeholder="Поиск статей..."
           className="w-full rounded-lg border border-primary/20 bg-surface py-2 pl-10 pr-28 text-sm text-text outline-none ring-accent/30 transition focus:border-accent focus:ring"
         />
@@ -117,16 +128,16 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
       </form>
 
       {showResults ? (
-        <ul className="absolute z-20 mt-2 w-full rounded-lg border border-primary/10 bg-surface p-2 shadow-sm">
+        <ul className="absolute z-10 mt-2 w-full rounded-lg border bg-white shadow-lg">
           {results.map((article) => (
             <li key={article.slug}>
               <Link
                 href={`/blog/${article.slug}`}
-                className="block rounded-md px-3 py-2 hover:bg-background"
                 onClick={() => setIsOpen(false)}
+                className="block px-4 py-3 hover:bg-slate-50"
               >
-                <p className="text-sm font-semibold text-primary">{article.title}</p>
-                <p className="text-xs text-text/70">{article.description}</p>
+                <div className="text-sm font-medium">{article.title}</div>
+                <div className="mt-1 text-xs text-slate-500">{article.description}</div>
               </Link>
             </li>
           ))}

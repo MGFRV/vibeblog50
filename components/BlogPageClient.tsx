@@ -73,8 +73,8 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
   }, [activeCategory, articles, searchQuery]);
 
   return (
-    <section>
-      <h1 className="text-3xl font-bold text-primary">Блог</h1>
+    <div className="space-y-6">
+      <h1 className="text-3xl font-bold">Блог</h1>
 
       <div className="mt-4 rounded-xl border border-primary/10 bg-surface p-4 md:p-5">
         <p className="text-sm text-text/75">
@@ -98,6 +98,18 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
             </button>
           ))}
         </div>
+<<<<<<< codex/audit-and-fix-yandex-metrica-integration-wq2wze
+      </div>
+
+      <div className="mt-4">
+        <SearchBar
+          articles={articles}
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          onSearchSubmit={updateUrlQuery}
+        />
+=======
+>>>>>>> main
       </div>
 
       <div className="mt-4">
@@ -109,21 +121,23 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
         />
       </div>
 
-      <div className="mt-4">
-        <CategoryFilter categories={categories} active={activeCategory} onChange={setActiveCategory} />
-      </div>
+      <CategoryFilter
+        categories={categories}
+        active={activeCategory}
+        onChange={setActiveCategory}
+      />
 
-      <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {filteredArticles.map((article) => (
           <ArticleCard key={article.slug} article={article} />
         ))}
       </div>
 
       {filteredArticles.length === 0 ? (
-        <p className="mt-8 rounded-lg border border-primary/10 bg-surface p-4 text-sm text-text/70">
+        <div className="rounded-lg border border-dashed p-6 text-slate-600">
           По вашему запросу ничего не найдено. Попробуйте изменить категорию или поисковую фразу.
-        </p>
+        </div>
       ) : null}
-    </section>
+    </div>
   );
 }
