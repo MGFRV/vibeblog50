@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
 
 type ModalView = 'choose' | 'form' | 'success';
 
@@ -110,7 +111,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
 
               {/* Вариант 1: каталог */}
               <a
-                href="https://cnc360.ru"
+                href={CNC360_CANONICAL_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-start gap-4 rounded-xl border-2 border-primary/10 p-4 transition hover:border-primary/30 hover:bg-primary/5"

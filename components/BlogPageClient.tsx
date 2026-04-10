@@ -1,6 +1,7 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import ArticleCard from '@/components/ArticleCard';
 import CategoryFilter from '@/components/CategoryFilter';
 import SearchBar from '@/components/SearchBar';
@@ -11,16 +12,47 @@ interface BlogPageClientProps {
   categories: Array<{ name: string; slug: string; count: number }>;
 }
 
+const quickQueries = ['аналог', 'совместимость', 'срочная закупка', 'серводвигатели', 'чек-лист'];
+
 export default function BlogPageClient({ articles, categories }: BlogPageClientProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
   const [activeCategory, setActiveCategory] = useState('Все');
   const [searchQuery, setSearchQuery] = useState('');
 
+  const updateUrlQuery = useCallback(
+    (nextQuery: string) => {
+      const normalized = nextQuery.trim().toLowerCase();
+      const nextParams = new URLSearchParams(searchParams.toString());
+
+      if (normalized) {
+        nextParams.set('q', normalized);
+      } else {
+        nextParams.delete('q');
+      }
+
+      const nextSearch = nextParams.toString();
+      const currentSearch = searchParams.toString();
+
+      if (nextSearch === currentSearch) {
+        return;
+      }
+
+      const nextUrl = nextSearch ? `${pathname}?${nextSearch}` : pathname;
+      router.replace(nextUrl, { scroll: false });
+    },
+    [pathname, router, searchParams]
+  );
+
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
     const categoryFromQuery = searchParams.get('category');
     const activeFromQuery = categories.find((category) => category.slug === categoryFromQuery)?.name ?? 'Все';
-    setActiveCategory(activeFromQuery);
-  }, [categories]);
+    const queryFromUrl = (searchParams.get('q') ?? '').trim().toLowerCase();
+
+    setActiveCategory((prev) => (prev === activeFromQuery ? prev : activeFromQuery));
+    setSearchQuery((prev) => (prev === queryFromUrl ? prev : queryFromUrl));
+  }, [categories, searchParams]);
 
   const filteredArticles = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
@@ -44,8 +76,37 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
     <section>
       <h1 className="text-3xl font-bold text-primary">Блог</h1>
 
-      <div className="mt-6">
-        <SearchBar articles={articles} onQueryChange={setSearchQuery} />
+      <div className="mt-4 rounded-xl border border-primary/10 bg-surface p-4 md:p-5">
+        <p className="text-sm text-text/75">
+          Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка совместимости» до
+          «срочная закупка».
+        </p>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {quickQueries.map((queryItem) => (
+            <button
+              key={queryItem}
+              type="button"
+              onClick={() => {
+                const normalized = queryItem.trim().toLowerCase();
+                setSearchQuery(normalized);
+                updateUrlQuery(normalized);
+              }}
+              className="rounded-full border border-primary/15 bg-background px-3 py-1 text-xs font-medium text-text/80 transition hover:border-accent/40 hover:text-accent"
+            >
+              {queryItem}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <SearchBar
+          articles={articles}
+          query={searchQuery}
+          onQueryChange={setSearchQuery}
+          onSearchSubmit={updateUrlQuery}
+        />
       </div>
 
       <div className="mt-4">
