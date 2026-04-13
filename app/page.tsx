@@ -6,6 +6,7 @@ import TopicHubSection from '@/components/TopicHubSection';
 import { getAllArticles } from '@/lib/articles';
 import { buildCategories } from '@/lib/categories';
 import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
+import Cnc360OutboundLink from '@/components/Cnc360OutboundLink';
 
 const quickScenarios = [
   {
@@ -82,7 +83,7 @@ export default function HomePage() {
           >
             Читать блог
           </Link>
-          <a
+          <Cnc360OutboundLink
             href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -92,7 +93,7 @@ export default function HomePage() {
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>
-          </a>
+          </Cnc360OutboundLink>
         </div>
 
         <div className="mt-8 grid gap-3 md:grid-cols-3">
@@ -134,13 +135,20 @@ export default function HomePage() {
               <article key={path.title} className="rounded-xl border border-primary/10 bg-background p-4">
                 <h3 className="text-base font-semibold text-primary">{path.title}</h3>
                 <p className="mt-2 text-sm text-text/70">{path.description}</p>
-                <Link
-                  href={path.href}
-                  {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline"
-                >
-                  {path.cta} →
-                </Link>
+                {isExternal ? (
+                  <Cnc360OutboundLink
+                    href={path.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline"
+                  >
+                    {path.cta} →
+                  </Cnc360OutboundLink>
+                ) : (
+                  <Link href={path.href} className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline">
+                    {path.cta} →
+                  </Link>
+                )}
               </article>
             );
           })}

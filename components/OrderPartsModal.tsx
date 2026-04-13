@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
+import { CNC360_CANONICAL_URL, trackCnc360Click } from '@/lib/cnc360';
 
 type ModalView = 'choose' | 'form' | 'success';
 
@@ -115,6 +115,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-start gap-4 rounded-xl border-2 border-primary/10 p-4 transition hover:border-primary/30 hover:bg-primary/5"
+                onClick={trackCnc360Click}
               >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
                   <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" stroke="currentColor" strokeWidth="1.5">

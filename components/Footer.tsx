@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getAllArticles } from '@/lib/articles';
 import { buildCategories } from '@/lib/categories';
 import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
+import Cnc360OutboundLink from '@/components/Cnc360OutboundLink';
 
 export default function Footer() {
   const categories = buildCategories(getAllArticles());
@@ -36,7 +37,7 @@ export default function Footer() {
           <p className="mt-3 text-sm text-white/70">
             Серводвигатели, энкодеры, платы управления, дисплеи для станков Fanuc, Siemens, Heidenhain.
           </p>
-          <a
+          <Cnc360OutboundLink
             href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -46,7 +47,7 @@ export default function Footer() {
             <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>
-          </a>
+          </Cnc360OutboundLink>
         </div>
 
         <div>
@@ -62,24 +63,24 @@ export default function Footer() {
         <div className="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-5 text-center md:flex-row md:justify-between md:px-6 md:text-left">
           <p className="text-sm text-white/70">
             Проект компании{' '}
-            <a
+            <Cnc360OutboundLink
               href={CNC360_CANONICAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="font-semibold text-white hover:text-accent"
             >
               «Эффективное производство»
-            </a>{' '}
+            </Cnc360OutboundLink>{' '}
             — поставка запчастей для станков с ЧПУ с 2005 года. Склад в Москве и Смоленске.
           </p>
-          <a
+          <Cnc360OutboundLink
             href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="shrink-0 rounded-md bg-accent px-4 py-2 text-sm font-semibold text-white transition hover:bg-[#a8612a]"
           >
             cnc360.ru →
-          </a>
+          </Cnc360OutboundLink>
         </div>
       </div>
 

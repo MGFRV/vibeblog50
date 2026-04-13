@@ -9,7 +9,7 @@ import YandexMetrika from '@/components/YandexMetrika';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin', 'cyrillic'], display: 'swap' });
+const inter = Inter({ subsets: ['cyrillic'], display: 'swap', preload: true });
 
 export const viewport: Viewport = {
   width: 'device-width',
