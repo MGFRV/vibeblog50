@@ -3,16 +3,7 @@
 import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { CNC360_CANONICAL_URL, isCnc360Hostname, toCanonicalCnc360Url } from '@/lib/cnc360';
-
-const METRIKA_ID = 108317503;
-const CNC360_GOAL = 'click_cnc360_outbound';
-
-declare global {
-  interface Window {
-    ym?: (...args: unknown[]) => void;
-  }
-}
+import { METRIKA_ID } from '@/lib/cnc360';
 
 export default function YandexMetrika() {
   const pathname = usePathname();
@@ -34,76 +25,9 @@ export default function YandexMetrika() {
     window.ym(METRIKA_ID, 'hit', url);
   }, [pathname, searchParams]);
 
-  useEffect(() => {
-    if (typeof window === 'undefined' || typeof document === 'undefined') {
-      return;
-    }
-
-    const updateAnchor = (anchor: HTMLAnchorElement) => {
-      const href = anchor.getAttribute('href');
-      if (!href) {
-        return;
-      }
-
-      const nextHref = toCanonicalCnc360Url(href, window.location.origin);
-      if (nextHref !== href) {
-        anchor.setAttribute('href', nextHref);
-      }
-    };
-
-    const updateAllAnchors = () => {
-      document.querySelectorAll<HTMLAnchorElement>('a[href]').forEach(updateAnchor);
-    };
-
-    const handleClick = (event: MouseEvent) => {
-      const anchor = (event.target as HTMLElement | null)?.closest<HTMLAnchorElement>('a[href]');
-      if (!anchor) {
-        return;
-      }
-
-      updateAnchor(anchor);
-
-      const href = anchor.getAttribute('href');
-      if (!href) {
-        return;
-      }
-
-      try {
-        const parsed = new URL(href, window.location.origin);
-        if (isCnc360Hostname(parsed.hostname)) {
-          window.ym?.(METRIKA_ID, 'reachGoal', CNC360_GOAL, {
-            href: CNC360_CANONICAL_URL
-          });
-        }
-      } catch {
-        // noop
-      }
-    };
-
-    updateAllAnchors();
-
-    const observer = new MutationObserver(() => {
-      updateAllAnchors();
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: true,
-      attributeFilter: ['href']
-    });
-
-    document.addEventListener('click', handleClick, true);
-
-    return () => {
-      observer.disconnect();
-      document.removeEventListener('click', handleClick, true);
-    };
-  }, []);
-
   return (
     <>
-      <Script id="yandex-metrika" strategy="afterInteractive">
+      <Script id="yandex-metrika" strategy="lazyOnload">
         {`
           (function(m,e,t,r,i,k,a){
             m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};

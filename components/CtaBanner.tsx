@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { CNC360_CANONICAL_URL } from '@/lib/cnc360';
+import Cnc360OutboundLink from '@/components/Cnc360OutboundLink';
 
 export default function CtaBanner() {
   return (
@@ -21,7 +22,7 @@ export default function CtaBanner() {
         </p>
 
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-          <Link
+          <Cnc360OutboundLink
             href={CNC360_CANONICAL_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -34,7 +35,7 @@ export default function CtaBanner() {
               <circle cx="7" cy="18" r="1" fill="currentColor" stroke="none" />
             </svg>
             Смотреть каталог cnc360.ru
-          </Link>
+          </Cnc360OutboundLink>
 
           <Link
             href="mailto:info@cnc360.ru?subject=%D0%97%D0%B0%D0%BF%D1%80%D0%BE%D1%81%20%D0%BD%D0%B0%20%D0%B7%D0%B0%D0%BF%D1%87%D0%B0%D1%81%D1%82%D0%B8"
