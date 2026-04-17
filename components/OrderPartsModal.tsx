@@ -60,35 +60,32 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
     setSubmitError('');
 
     try {
-      const response = await fetch('https://api.web3forms.com/submit', {
+      const payload = new FormData();
+      payload.append('access_key', 'efb5634c-52e7-4950-9f5c-5ad0b50d1bcf');
+      payload.append('subject', 'Заявка на поставку запчастей с сайта Podbor');
+      payload.append('from_name', 'Форма заявки на поставку');
+      payload.append('name', formData.name);
+      payload.append('email', formData.email);
+      payload.append('phone', formData.phone || 'не указан');
+      payload.append('message', formData.description);
+
+      const web3FormsResponse = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           Accept: 'application/json'
         },
-        body: JSON.stringify({
-          access_key: 'efb5634c-52e7-4950-9f5c-5ad0b50d1bcf',
-          subject: 'Заявка на поставку запчастей с сайта cnc360.ru',
-          from_name: 'Форма заявки на поставку',
-          to: 'info@cnc360.ru',
-          ccemail: 'info@podbor-oborudovaniya.ru',
-          name: formData.name,
-          email: formData.email,
-          replyto: formData.email,
-          phone: formData.phone || 'не указан',
-          message: formData.description
-        })
+        body: payload
       });
+      const web3FormsResult = await web3FormsResponse.json();
 
-      const result = await response.json();
-      if (!response.ok || !result?.success) {
-        throw new Error('Ошибка отправки формы');
+      if (!web3FormsResponse.ok || !web3FormsResult?.success) {
+        throw new Error(web3FormsResult?.message || web3FormsResult?.body?.message || 'Ошибка отправки через Web3Forms');
       }
 
       setView('success');
     } catch (error) {
       console.error(error);
-      setSubmitError('Не удалось отправить заявку. Напишите нам на info@podbor-oborudovaniya.ru или info@cnc360.ru.');
+      setSubmitError('Не удалось отправить заявку. Проверьте интернет и попробуйте ещё раз или напишите на info@podbor-oborudovaniya.ru и info@cnc360.ru.');
     } finally {
       setIsSubmitting(false);
     }
