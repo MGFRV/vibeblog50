@@ -19,12 +19,14 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
     description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       setView('choose');
       setFormData({ name: '', email: '', phone: '', description: '' });
+      setSubmitError('');
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -55,16 +57,41 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
 
-    // Формируем mailto-ссылку как fallback (замените на реальный API-эндпоинт)
-    const subject = encodeURIComponent('Заявка на поставку запчастей');
-    const body = encodeURIComponent(
-      `Имя: ${formData.name}\nEmail: ${formData.email}\nТелефон: ${formData.phone || 'не указан'}\n\nОписание:\n${formData.description}`
-    );
-    window.open(`mailto:info@cnc360.ru?subject=${subject}&body=${body}`, '_blank');
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: 'efb5634c-52e7-4950-9f5c-5ad0b50d1bcf',
+          subject: 'Заявка на поставку запчастей с сайта cnc360.ru',
+          from_name: 'Форма заявки на поставку',
+          to: 'info@cnc360.ru',
+          ccemail: 'info@podbor-oborudovaniya.ru',
+          name: formData.name,
+          email: formData.email,
+          replyto: formData.email,
+          phone: formData.phone || 'не указан',
+          message: formData.description
+        })
+      });
 
-    setIsSubmitting(false);
-    setView('success');
+      const result = await response.json();
+      if (!response.ok || !result?.success) {
+        throw new Error('Ошибка отправки формы');
+      }
+
+      setView('success');
+    } catch (error) {
+      console.error(error);
+      setSubmitError('Не удалось отправить заявку. Напишите нам на info@podbor-oborudovaniya.ru или info@cnc360.ru.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (!isOpen) return null;
@@ -248,6 +275,10 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                 >
                   {isSubmitting ? 'Отправка…' : 'Отправить заявку'}
                 </button>
+
+                {submitError && (
+                  <p className="text-center text-sm text-red-600">{submitError}</p>
+                )}
 
                 <p className="text-center text-xs text-text/40">
                   Ответим в течение 1 рабочего дня на указанную почту
