@@ -19,12 +19,14 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
     description: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState('');
   const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isOpen) {
       setView('choose');
       setFormData({ name: '', email: '', phone: '', description: '' });
+      setSubmitError('');
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -55,16 +57,38 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitError('');
 
-    // Формируем mailto-ссылку как fallback (замените на реальный API-эндпоинт)
-    const subject = encodeURIComponent('Заявка на поставку запчастей');
-    const body = encodeURIComponent(
-      `Имя: ${formData.name}\nEmail: ${formData.email}\nТелефон: ${formData.phone || 'не указан'}\n\nОписание:\n${formData.description}`
-    );
-    window.open(`mailto:info@cnc360.ru?subject=${subject}&body=${body}`, '_blank');
+    try {
+      const payload = new FormData();
+      payload.append('access_key', 'efb5634c-52e7-4950-9f5c-5ad0b50d1bcf');
+      payload.append('subject', 'Заявка на поставку запчастей с сайта cnc360.ru');
+      payload.append('from_name', 'Форма заявки на поставку');
+      payload.append('name', formData.name);
+      payload.append('email', formData.email);
+      payload.append('phone', formData.phone || 'не указан');
+      payload.append('message', formData.description);
 
-    setIsSubmitting(false);
-    setView('success');
+      const web3FormsResponse = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json'
+        },
+        body: payload
+      });
+      const web3FormsResult = await web3FormsResponse.json();
+
+      if (!web3FormsResponse.ok || !web3FormsResult?.success) {
+        throw new Error(web3FormsResult?.message || web3FormsResult?.body?.message || 'Ошибка отправки через Web3Forms');
+      }
+
+      setView('success');
+    } catch (error) {
+      console.error(error);
+      setSubmitError('Не удалось отправить заявку. Проверьте интернет и попробуйте ещё раз или напишите на info@podbor-oborudovaniya.ru и info@cnc360.ru.');
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (!isOpen) return null;
@@ -190,7 +214,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Иван Петров"
-                    className="w-full rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -206,7 +230,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="ivan@company.ru"
-                    className="w-full rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -221,7 +245,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="+7 (___) ___-__-__"
-                    className="w-full rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -237,7 +261,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.description}
                     onChange={handleInputChange}
                     placeholder="Например: серводвигатель Fanuc A06B-0075-B403, 2 шт. Или опишите задачу — мы подберём нужные комплектующие."
-                    className="w-full resize-none rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full resize-none rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -248,6 +272,10 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                 >
                   {isSubmitting ? 'Отправка…' : 'Отправить заявку'}
                 </button>
+
+                {submitError && (
+                  <p className="text-center text-sm text-red-600">{submitError}</p>
+                )}
 
                 <p className="text-center text-xs text-text/40">
                   Ответим в течение 1 рабочего дня на указанную почту
