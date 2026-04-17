@@ -62,7 +62,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
     try {
       const payload = new FormData();
       payload.append('access_key', 'efb5634c-52e7-4950-9f5c-5ad0b50d1bcf');
-      payload.append('subject', 'Заявка на поставку запчастей с сайта cnc360.ru');
+      payload.append('subject', 'Заявка на поставку запчастей с сайта Podbor');
       payload.append('from_name', 'Форма заявки на поставку');
       payload.append('name', formData.name);
       payload.append('email', formData.email);
