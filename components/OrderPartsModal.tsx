@@ -190,7 +190,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.name}
                     onChange={handleInputChange}
                     placeholder="Иван Петров"
-                    className="w-full rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -206,7 +206,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.email}
                     onChange={handleInputChange}
                     placeholder="ivan@company.ru"
-                    className="w-full rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -221,7 +221,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.phone}
                     onChange={handleInputChange}
                     placeholder="+7 (___) ___-__-__"
-                    className="w-full rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
@@ -237,7 +237,7 @@ export default function OrderPartsModal({ isOpen, onClose }: OrderPartsModalProp
                     value={formData.description}
                     onChange={handleInputChange}
                     placeholder="Например: серводвигатель Fanuc A06B-0075-B403, 2 шт. Или опишите задачу — мы подберём нужные комплектующие."
-                    className="w-full resize-none rounded-lg border border-text/15 px-4 py-2.5 text-sm outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+                    className="w-full resize-none rounded-lg border border-text/15 bg-white px-4 py-2.5 text-sm text-text placeholder:text-text/40 outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
                   />
                 </div>
 
