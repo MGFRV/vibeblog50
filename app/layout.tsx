@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
+import Script from 'next/script';
 import { Suspense } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ScrollToTop from '@/components/ScrollToTop';
 import SchemaOrg from '@/components/SchemaOrg';
-import YandexMetrika from '@/components/YandexMetrika';
+import YandexMetrikaRouteTracker from '@/components/YandexMetrikaRouteTracker';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from '@/lib/constants';
+import { METRIKA_ID } from '@/lib/cnc360';
 import './globals.css';
 
 const inter = Inter({ subsets: ['cyrillic'], display: 'swap', preload: true });
@@ -102,6 +104,23 @@ export default function RootLayout({
         <meta name="yandex" content="index, follow" />
         <link rel="canonical" href={SITE_URL + '/'} />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+        <Script id="yandex-metrika" strategy="lazyOnload">
+          {`
+            (function(m,e,t,r,i,k,a){
+              m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+              m[i].l=1*new Date();
+              k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.defer=1,k.src=r,a.parentNode.insertBefore(k,a);
+            })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+            ym(${METRIKA_ID}, "init", {
+              webvisor: true,
+              clickmap: true,
+              trackLinks: true,
+              accurateTrackBounce: true,
+              defer: true
+            });
+          `}
+        </Script>
       </head>
       <body className={`${inter.className} min-h-screen bg-background text-text antialiased`}>
         <SchemaOrg data={webSiteSchema} />
@@ -111,8 +130,13 @@ export default function RootLayout({
         <Footer />
         <ScrollToTop />
         <Suspense fallback={null}>
-          <YandexMetrika />
+          <YandexMetrikaRouteTracker />
         </Suspense>
+        <noscript>
+          <div>
+            <img src={`https://mc.yandex.ru/watch/${METRIKA_ID}`} style={{ position: 'absolute', left: '-9999px' }} alt="" />
+          </div>
+        </noscript>
       </body>
     </html>
   );
