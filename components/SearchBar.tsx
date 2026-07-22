@@ -116,12 +116,12 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
             }
           }}
           placeholder="Поиск статей..."
-          className="w-full rounded-lg border border-primary/20 bg-surface py-2 pl-10 pr-28 text-sm text-text outline-none ring-accent/30 transition focus:border-accent focus:ring"
+          className="w-full rounded-lg border border-primary/20 bg-surface py-3 pl-10 pr-4 text-base text-text outline-none ring-accent/30 transition focus:border-accent focus:ring sm:py-2 sm:pr-28 sm:text-sm"
         />
 
         <button
           type="submit"
-          className="absolute right-1.5 top-1/2 -translate-y-1/2 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-white transition hover:bg-primary/90"
+          className="mt-2 w-full rounded-md bg-primary px-4 py-3 text-sm font-semibold text-white transition hover:bg-primary/90 sm:absolute sm:right-1.5 sm:top-1/2 sm:mt-0 sm:w-auto sm:-translate-y-1/2 sm:px-3 sm:py-1.5 sm:text-xs"
         >
           Найти
         </button>
