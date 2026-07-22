@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import ArticleCard from '@/components/ArticleCard';
+import BlogPageContent from '@/components/BlogPageContent';
 import CategoryFilter from '@/components/CategoryFilter';
 import SearchBar from '@/components/SearchBar';
 import type { ArticleFrontmatter } from '@/lib/types';
@@ -115,11 +115,7 @@ export default function BlogPageClient({ articles, categories }: BlogPageClientP
         onChange={setActiveCategory}
       />
 
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {filteredArticles.map((article) => (
-          <ArticleCard key={article.slug} article={article} />
-        ))}
-      </div>
+      <BlogPageContent articles={filteredArticles} />
 
       {filteredArticles.length === 0 ? (
         <div className="rounded-lg border border-dashed p-6 text-slate-600">
