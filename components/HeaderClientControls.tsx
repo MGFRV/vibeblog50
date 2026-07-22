@@ -42,7 +42,7 @@ export default function HeaderClientControls({ mode, navigation, quickLinks, cnc
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
-        className="inline-flex items-center rounded-md border border-white/30 px-3 py-2 text-sm md:hidden"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border border-white/30 px-3 py-2 text-sm md:hidden"
         aria-expanded={isOpen}
         aria-label="Открыть меню"
       >
@@ -53,13 +53,13 @@ export default function HeaderClientControls({ mode, navigation, quickLinks, cnc
       </button>
 
       {isOpen ? (
-        <nav className="border-t border-white/20 px-4 py-3 md:hidden">
+        <nav className="order-last -mx-4 w-[calc(100%+2rem)] border-t border-white/20 bg-primary px-4 py-3 md:hidden">
           <ul className="space-y-2">
             {navigation.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-md px-2 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white"
+                  className="block rounded-md px-3 py-3 text-base text-white/90 hover:bg-white/10 hover:text-white"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
@@ -70,7 +70,7 @@ export default function HeaderClientControls({ mode, navigation, quickLinks, cnc
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="block rounded-md px-2 py-2 text-sm text-white/90 hover:bg-white/10 hover:text-white"
+                  className="block rounded-md px-3 py-3 text-base text-white/90 hover:bg-white/10 hover:text-white"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
@@ -82,7 +82,7 @@ export default function HeaderClientControls({ mode, navigation, quickLinks, cnc
                 href={cnc360Url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block rounded-md border border-white/30 px-4 py-2.5 text-center text-sm font-semibold text-white transition hover:bg-white/10"
+                className="block rounded-md border border-white/30 px-4 py-3 text-center text-base font-semibold text-white transition hover:bg-white/10"
                 onClick={() => {
                   setIsOpen(false);
                   trackCnc360Click();
@@ -97,7 +97,7 @@ export default function HeaderClientControls({ mode, navigation, quickLinks, cnc
                   setIsOpen(false);
                   setIsModalOpen(true);
                 }}
-                className="mt-1 w-full rounded-lg bg-accent px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-[#a8612a]"
+                className="mt-1 w-full rounded-lg bg-accent px-4 py-3 text-base font-semibold text-white transition hover:bg-[#a8612a]"
               >
                 Заказать запчасти
               </button>

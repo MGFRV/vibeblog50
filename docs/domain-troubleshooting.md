@@ -1,42 +1,49 @@
 # Проблема с доступностью `podbor-oborudovaniya.ru`
 
-Дата обновления проверки: **2026-04-28**.
+Дата обновления проверки: **2026-07-22**.
 
-## Что обнаружено
+## Что обнаружено сейчас
 
-1. `podbor-oborudovaniya.ru` открывается с HTTP `403 Forbidden` для краулеров.
-2. В ответе присутствуют заголовки:
-   - `X-Vercel-Mitigated: challenge`
-   - `X-Vercel-Challenge-Token: ...`
-3. Это означает, что запросы ботов блокируются защитой Vercel на уровне платформы (challenge), а не `robots.txt`.
+1. DNS для apex-домена и `www` настроен на ожидаемый IPv4: `91.210.106.182`.
+2. AAAA-записей нет, поэтому проблема не похожа на ошибочную IPv6-маршрутизацию.
+3. TCP-проверка показывает, что сервер `91.210.106.182` не принимает подключения на портах `80` и `443`.
+4. HTTP(S)-проверки главной страницы, `www` и `/health.txt` завершаются `curl: (7) Failed to connect ... Couldn't connect to server`.
 
 ## Вывод
 
-`robots.txt` и мета-теги в приложении не могут обойти Vercel challenge.
-Пока в проекте включён режим challenge для ботов, часть краулеров (включая YandexBot) будет получать 403 и не индексировать страницы.
+Сайт недоступен не из-за React/Next.js-кода и не из-за `robots.txt`: домен резолвится корректно, но на целевом сервере не открыт веб-сервис на портах `80/443` либо трафик блокируется firewall/security-group перед приложением.
+
+Приоритетная зона проверки — хостинг/сервер:
+
+- запущен ли nginx/Caddy/Apache или другой reverse proxy;
+- слушает ли веб-сервер `0.0.0.0:80` и `0.0.0.0:443`;
+- открыты ли входящие правила firewall/security-group для `80/tcp` и `443/tcp`;
+- выдан и подключён ли TLS-сертификат для `podbor-oborudovaniya.ru` и `www.podbor-oborudovaniya.ru`;
+- опубликована ли папка статического экспорта `out/` после `npm run build`.
 
 ## Что исправлено в репозитории
 
-- Роботы переведены на metadata-route `app/robots.ts` (единый источник правды в коде).
-- Удалён статический `public/robots.txt`, чтобы не было расхождений.
-- Удалён статический `public/sitemap.xml`, используется генерация из `app/sitemap.ts`.
-- Добавлен `vercel.json` с явным `X-Robots-Tag: index, follow` и кеш-заголовками для `robots.txt` / `sitemap.xml`.
+- Убрана динамическая OG-картинка на `/opengraph-image`, потому что проект собирается как статический экспорт (`output: 'export'`) и такая edge-route не попадает в `out/`.
+- Метаданные статей теперь ссылаются на существующий статический файл `/og-default.svg`.
+- Обновлены mobile-friendly стили, чтобы меню, поиск, таблицы и длинные строки не ломали мобильную ширину.
+- RSS пересобран актуальным генератором проекта.
 
-## Что нужно сделать в Vercel (обязательно)
-
-1. Project → **Settings → Security** (или Firewall/Bot Protection).
-2. Отключить режим challenge для verified search bots (минимум для YandexBot/Googlebot).
-3. Если включён WAF managed challenge globally — добавить bypass для:
-   - `User-Agent` содержит `YandexBot`, `Googlebot`, `Bingbot`;
-   - путей `/robots.txt`, `/sitemap.xml`.
-4. Проверить, что домен `podbor-oborudovaniya.ru` в **Settings → Domains** имеет статус `Valid`.
-
-## Быстрая проверка после изменения настроек
+## Быстрая диагностика сервера
 
 ```bash
-curl -I https://podbor-oborudovaniya.ru/robots.txt
-curl -I https://podbor-oborudovaniya.ru/sitemap.xml
-curl -I -A "Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bots)" https://podbor-oborudovaniya.ru/
+./scripts/check-domain.sh
 ```
 
-Ожидаемо: HTTP 200/301/308 (но не 403), и отсутствие `X-Vercel-Mitigated: challenge`.
+Ожидаемо для исправного сервера: DNS указывает на нужный IP, TCP `80/443` принимает подключения, а `https://podbor-oborudovaniya.ru/health.txt` возвращает HTTP `200`.
+
+## Команды на сервере
+
+```bash
+sudo ss -lntp | grep -E ':(80|443)\s'
+sudo systemctl status nginx --no-pager
+sudo ufw status verbose
+curl -I http://127.0.0.1/health.txt
+curl -I https://podbor-oborudovaniya.ru/health.txt
+```
+
+Если локально `127.0.0.1` отвечает, а снаружи нет — проблема в firewall/security-group или пробросе портов. Если локально тоже нет ответа — проблема в веб-сервере, деплое или конфигурации TLS/virtual host.
