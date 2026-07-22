@@ -17,8 +17,8 @@ const quickLinks = [
 export default function Header() {
   return (
     <header className="sticky top-0 z-50 bg-primary text-white shadow-sm">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 md:px-6">
-        <Link href="/" className="text-xl font-bold tracking-tight">
+      <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-y-3 px-4 py-3 md:flex-nowrap md:px-6 md:py-4">
+        <Link href="/" className="min-w-0 max-w-[calc(100%-4rem)] text-lg font-bold tracking-tight sm:text-xl">
           ПодборОборудования
         </Link>
 

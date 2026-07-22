@@ -53,3 +53,40 @@ body {
 .prose a {
   @apply text-accent underline-offset-4 transition hover:underline;
 }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 88px;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.prose {
+  overflow-wrap: anywhere;
+}
+
+.prose pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.prose :where(table) {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .prose {
+    font-size: 1rem;
+  }
+
+  .prose h1,
+  .prose h2,
+  .prose h3 {
+    overflow-wrap: anywhere;
+  }
+}
