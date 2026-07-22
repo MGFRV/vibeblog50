@@ -84,40 +84,42 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
 
   return (
     <div className="relative" ref={containerRef}>
-      <form className="relative" onSubmit={handleSubmit}>
-        <svg
-          className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text/40"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-        >
-          <circle cx="11" cy="11" r="7" />
-          <path d="m20 20-3.5-3.5" />
-        </svg>
+      <form className="sm:relative" onSubmit={handleSubmit}>
+        <div className="relative">
+          <svg
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-text/40"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m20 20-3.5-3.5" />
+          </svg>
 
-        <input
-          type="search"
-          value={inputValue}
-          onChange={(event) => {
-            setInputValue(event.target.value);
-            setIsOpen(true);
-          }}
-          onFocus={() => setIsOpen(true)}
-          onKeyDown={(event) => {
-            if (event.key === 'Enter') {
-              event.preventDefault();
-              const normalized = inputValue.trim().toLowerCase();
-              if (normalized !== lastEmittedQueryRef.current) {
-                lastEmittedQueryRef.current = normalized;
-                onQueryChange?.(normalized);
+          <input
+            type="search"
+            value={inputValue}
+            onChange={(event) => {
+              setInputValue(event.target.value);
+              setIsOpen(true);
+            }}
+            onFocus={() => setIsOpen(true)}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') {
+                event.preventDefault();
+                const normalized = inputValue.trim().toLowerCase();
+                if (normalized !== lastEmittedQueryRef.current) {
+                  lastEmittedQueryRef.current = normalized;
+                  onQueryChange?.(normalized);
+                }
+                onSearchSubmit?.(normalized);
               }
-              onSearchSubmit?.(normalized);
-            }
-          }}
-          placeholder="Поиск статей..."
-          className="w-full rounded-lg border border-primary/20 bg-surface py-3 pl-10 pr-4 text-base text-text outline-none ring-accent/30 transition focus:border-accent focus:ring sm:py-2 sm:pr-28 sm:text-sm"
-        />
+            }}
+            placeholder="Поиск статей..."
+            className="w-full rounded-lg border border-primary/20 bg-surface py-3 pl-10 pr-4 text-base text-text outline-none ring-accent/30 transition focus:border-accent focus:ring sm:py-2 sm:pr-28 sm:text-sm"
+          />
+        </div>
 
         <button
           type="submit"
