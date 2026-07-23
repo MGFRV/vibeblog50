@@ -6,6 +6,7 @@ import Cnc360OutboundLink from '@/components/Cnc360OutboundLink';
 
 export default function Footer() {
   const categories = buildCategories(getAllArticles());
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="mt-16 bg-text text-white">
@@ -85,7 +86,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-white/10">
-        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-white/60 md:px-6">© 2025 ПодборОборудования</p>
+        <p className="mx-auto max-w-6xl px-4 py-4 text-xs text-white/60 md:px-6">© {currentYear} ПодборОборудования</p>
       </div>
     </footer>
   );
