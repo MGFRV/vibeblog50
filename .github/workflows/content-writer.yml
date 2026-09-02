@@ -1,0 +1,80 @@
+name: Content writer agent
+
+on:
+  workflow_dispatch: {}
+  # Once you've seen the real per-run cost in Console and you're comfortable
+  # with it, uncomment this to run automatically (example: every Monday 07:00 UTC):
+  # schedule:
+  #   - cron: '0 7 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  write-article:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Ты — редактор блога podbor-oborudovaniya.ru (экспертный B2B-блог о
+            закупке промышленного оборудования и запчастей для ЧПУ, аудитория —
+            снабженцы и специалисты по закупкам).
+
+            Твоя задача за этот прогон — написать ОДНУ новую статью и открыть
+            по ней Pull Request. Не трогай ничего, кроме одного нового файла
+            в content/articles/. Не мержи PR и не пушь в main напрямую.
+
+            Шаги:
+
+            1. Изучи существующий контент: посмотри заголовки, category и tags
+               во frontmatter всех файлов в content/articles/*.mdx (например,
+               grep по `title:`, `category:`, `tags:`), чтобы понять, что уже
+               написано, и не повторить существующую тему.
+            2. Посмотри lib/constants.ts — там точный список допустимых
+               значений category (CATEGORIES). Используй ТОЛЬКО одно из этих
+               названий category дословно, не придумывай новые категории.
+            3. Выбери одну конкретную тему-пробел в рамках этих категорий —
+               то, что ещё не раскрыто или раскрыто слишком поверхностно
+               в существующих 120+ статьях. Тема должна быть практической и
+               релевантной аудитории (закупка, подбор аналогов, работа с
+               поставщиками, документация, запчасти и сервис, выбор
+               оборудования), а не общей/маркетинговой.
+            4. Возьми один существующий файл как образец (например,
+               content/articles/srochnaya-zakupka-zapchastey-dlya-chpu.mdx)
+               и в точности повтори структуру frontmatter: title, slug,
+               description, category, tags (список), date (сегодняшняя дата
+               в формате 'YYYY-MM-DD'), readingTime (число минут), faq
+               (список из 4-5 объектов question/answer). После frontmatter —
+               сам текст статьи в Markdown/MDX: вступление, несколько
+               разделов с заголовками ##, конкретика и практические советы,
+               без общих фраз и воды. Ориентир по объёму — 900-1500 слов.
+               Тон — экспертный, прямой, как у существующих статей.
+            5. Сохрани файл как content/articles/<slug>.mdx, где <slug>
+               совпадает с полем slug и с именем файла (латиница, дефисы,
+               без пробелов — как в существующих файлах).
+            6. Создай новую ветку с именем вида bot/content/<slug>, закоммить
+               только этот новый файл, запушь ветку.
+            7. Через gh CLI создай Pull Request в main с понятным заголовком
+               (название статьи) и коротким описанием: почему выбрана эта
+               тема, какие смежные статьи уже есть, краткое содержание.
+            8. Убедись, что на репозитории есть лейбл seo-content
+               (`gh label create seo-content --color 0e8a16 --description
+               "Новая статья / SEO-правка — предлагается агентом" --force`),
+               и добавь его на созданный PR (`gh pr edit <номер> --add-label
+               seo-content`).
+            9. Ничего не мержи. На этом твоя работа за этот прогон закончена.
+          claude_args: |
+            --model claude-sonnet-5
+            --max-turns 40
+            --max-budget-usd 1.00
+            --effort medium
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
