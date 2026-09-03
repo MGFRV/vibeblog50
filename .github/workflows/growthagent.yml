@@ -1,0 +1,62 @@
+name: Growth agent
+
+on:
+  workflow_dispatch: {}
+  # Once you've seen real per-run cost and behavior, uncomment to automate
+  # (example: twice a week, Mon/Thu 07:00 UTC):
+  # schedule:
+  #   - cron: '0 7 * * 1,4'
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - uses: anthropics/claude-code-action@v1
+        env:
+          YANDEX_OAUTH_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Ты работаешь с этим репозиторием как автономный агент,
+            отвечающий за рост органического трафика и качество блога
+            podbor-oborudovaniya.ru. Полный контекст, схема контента,
+            известный техдолг и правила работы — в AGENTS.md в корне
+            репозитория. Прочитай его первым делом, это обязательно.
+
+            Сначала посмотри реальные данные — сводку и популярные запросы
+            из Яндекс.Вебмастера, статистику по URL из Яндекс.Метрики (обе
+            описаны в AGENTS.md). Реши, что сейчас наиболее ценно на основе
+            этих данных, а не только по содержимому репозитория: новая
+            статья на тему-пробел, исправление технической/SEO-проблемы,
+            доработка существующей статьи (например, title/description у
+            статьи с показами, но низким CTR). В описании PR объясни, что
+            ты увидел в данных и почему выбрал именно это действие.
+
+            Работай по процессу из AGENTS.md: отдельная ветка, обязательный
+            npm run build перед мержем, один PR за прогон, смердж через
+            gh CLI (squash) сам — но только если сборка зелёная. Если не
+            получилось добиться зелёной сборки — оставь PR открытым и
+            опиши проблему, не мержи.
+          claude_args: |
+            --model claude-sonnet-5
+            --max-turns 50
+            --max-budget-usd 1.50
+            --effort medium
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
