@@ -67,7 +67,7 @@ jobs:
             --max-turns 50
             --max-budget-usd 1.50
             --effort medium
-            --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
+            --allowedTools "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
 
       # Safety net: fires only if the agent step itself failed/crashed before
       # it could send its own Telegram summary, so silence never means "all good".
