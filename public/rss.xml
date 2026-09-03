@@ -8,6 +8,181 @@
     <atom:link href="https://podbor-oborudovaniya.ru/rss.xml" rel="self" type="application/rss+xml"/>
     
   <item>
+    <title><![CDATA[Что такое ЗИП: расшифровка, состав и зачем он нужен на производстве]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/chto-takoe-zip-rasshifrovka/</link>
+    <description><![CDATA[Расшифровка аббревиатуры ЗИП, что входит в комплект, чем он отличается от аварийного запаса и как его учитывают на складе и в бухгалтерии.]]></description>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/chto-takoe-zip-rasshifrovka/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Кросс-референс таблицы аналогов: как пользоваться на практике]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/kross-referens-analogi/</link>
+    <description><![CDATA[Разбор процесса работы с кросс-референс таблицами: откуда брать данные, как сверять параметры и на каком этапе таблица перестаёт быть надёжной основой для заказа.]]></description>
+    <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/kross-referens-analogi/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Совместимость по разъёмам, протоколам и габаритам: как проверить перед закупкой]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/sovmestimost-razyomy-protokoly/</link>
+    <description><![CDATA[Разбор процесса проверки совместимости запчасти по трём уровням: механика, электрика, протокол обмена данными. Что сверять на каждом этапе и где чаще всего ошибаются снабженцы.]]></description>
+    <pubDate>Thu, 23 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/sovmestimost-razyomy-protokoly/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Позиция снята с производства: как найти замену без остановки линии]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/snyata-s-proizvodstva-zamena/</link>
+    <description><![CDATA[Пошаговый процесс поиска замены снятой с производства детали: от подтверждения статуса до испытаний аналога и обновления спецификаций ЗИП.]]></description>
+    <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/snyata-s-proizvodstva-zamena/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Поставщик предлагает современную замену детали: как проверить, что она подойдёт]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/sovremennaya-zamena-detali/</link>
+    <description><![CDATA[Разбор процесса проверки, когда поставщик вместо снятой с производства детали предлагает «современный аналог». Что сверять и на каком этапе можно отказаться.]]></description>
+    <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/sovremennaya-zamena-detali/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Как сверять артикулы и каталожные номера при заказе запчастей]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/sverka-artikulov/</link>
+    <description><![CDATA[Пошаговый разбор процесса сверки артикулов: откуда брать исходные данные, как проверять ревизии и кросс-номера, чтобы не получить не ту деталь.]]></description>
+    <pubDate>Wed, 22 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/sverka-artikulov/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Как подобрать аналог детали для станка с ЧПУ: пошаговый процесс]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/podbor-analoga-detali/</link>
+    <description><![CDATA[Разбор процесса подбора аналога детали для станка с ЧПУ: от сбора данных об оригинале до ввода замены в постоянный оборот. Этапы, сроки, типичные ошибки.]]></description>
+    <pubDate>Tue, 21 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/podbor-analoga-detali/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Проверка совместимости запчасти перед закупкой: пошаговый разбор процесса]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/proverka-sovmestimosti-zapchasti/</link>
+    <description><![CDATA[Как на практике проверяют совместимость запчасти с оборудованием до оформления заказа: этапы, участники, сроки и типичные ошибки снабженцев.]]></description>
+    <pubDate>Tue, 21 Jul 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/proverka-sovmestimosti-zapchasti/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Как выстроить долгосрочные отношения с поставщиком]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/otnosheniya-s-postavshchikom/</link>
+    <description><![CDATA[Что реально отличает долгосрочное партнёрство с поставщиком от серии разовых сделок, и почему такие отношения окупаются именно в сложных ситуациях.]]></description>
+    <pubDate>Tue, 16 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/otnosheniya-s-postavshchikom/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Где искать поставщиков редких комплектующих для ЧПУ]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/poisk-postavshchika-komplektuyushchih/</link>
+    <description><![CDATA[Практические источники поиска поставщиков для редких и снятых с производства комплектующих ЧПУ, когда стандартный запрос в поисковике ничего не даёт.]]></description>
+    <pubDate>Tue, 16 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/poisk-postavshchika-komplektuyushchih/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Работа с несколькими поставщиками: плюсы и риски]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/rabota-s-neskolkimi-postavshchikami/</link>
+    <description><![CDATA[Стоит ли распределять закупки между несколькими поставщиками одной категории, или лучше сосредоточиться на одном партнёре — разбор плюсов, минусов и логики выбора.]]></description>
+    <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/rabota-s-neskolkimi-postavshchikami/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Как оценить сроки поставки и не сорвать ремонт]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/sroki-postavki-zapchastey/</link>
+    <description><![CDATA[Почему заявленный поставщиком срок поставки почти никогда не равен реальному, и как закупщику оценивать сроки так, чтобы график ремонта не разваливался.]]></description>
+    <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/sroki-postavki-zapchastey/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Оригинал, аналог или реплика запчасти: как понять, что предлагает поставщик]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/original-analog-replika-zapchasti-stankov/</link>
+    <description><![CDATA[Как отличить оригинальную запчасть от легального аналога и от неавторизованной реплики — и почему поставщики не всегда объясняют разницу сами.]]></description>
+    <pubDate>Sun, 14 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/original-analog-replika-zapchasti-stankov/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Поставщик предлагает Б/У оборудование: что делать?]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/bu-oborudovanie-ot-postavshchika/</link>
+    <description><![CDATA[Как реагировать, когда вместо заявленного нового узла поставщик предлагает б/у или восстановленный компонент — и в каких случаях это разумная альтернатива, а не повод для отказа.]]></description>
+    <pubDate>Sat, 13 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/bu-oborudovanie-ot-postavshchika/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Переговоры с поставщиком о цене и сроках]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/peregovory-s-postavshchikom/</link>
+    <description><![CDATA[Практические принципы переговоров с поставщиками промышленного оборудования и запчастей: как обсуждать цену и сроки, не разрушая отношения и не теряя позицию.]]></description>
+    <pubDate>Sat, 13 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/peregovory-s-postavshchikom/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Импортозамещение комплектующих для станков: реально ли это?]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/importozameshchenie-komplektuyushchih/</link>
+    <description><![CDATA[Честный разбор того, какие комплектующие для станков с ЧПУ реально заместить сегодня, а где переход на аналог требует времени, тестов и компромиссов.]]></description>
+    <pubDate>Fri, 12 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/importozameshchenie-komplektuyushchih/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Признаки ненадёжного поставщика комплектующих]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/nenadyozhnyy-postavshchik-priznaki/</link>
+    <description><![CDATA[Какие сигналы в поведении и коммуникации поставщика комплектующих для промышленного оборудования говорят о будущих проблемах ещё до заключения сделки.]]></description>
+    <pubDate>Wed, 10 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/nenadyozhnyy-postavshchik-priznaki/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Как проверить поставщика запчастей для ЧПУ]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/proverka-postavshchika/</link>
+    <description><![CDATA[Практический чек-лист проверки поставщика запчастей для станков с ЧПУ: что смотреть до первого заказа, чтобы не получить контрафакт или сорванный срок.]]></description>
+    <pubDate>Tue, 09 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/proverka-postavshchika/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Бюджетирование закупок запчастей на год]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/byudzhet-zakupki-zapchastey/</link>
+    <description><![CDATA[Как спланировать годовой бюджет на запчасти для промышленного оборудования, чтобы он не разваливался в марте от первой же аварийной закупки.]]></description>
+    <pubDate>Mon, 08 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/byudzhet-zakupki-zapchastey/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Консолидация заказов: как экономить на поставках]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/konsolidaciya-zakazov/</link>
+    <description><![CDATA[Как объединение мелких закупок в крупные партии снижает логистические расходы и повышает переговорную позицию, и в каких случаях консолидация, наоборот, вредит срокам.]]></description>
+    <pubDate>Sun, 07 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/konsolidaciya-zakazov/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Тендер на закупку запчастей: как подготовить]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/tender-na-zakupku-zapchastey/</link>
+    <description><![CDATA[Как подготовить тендер на закупку запчастей для промышленного оборудования, чтобы получить сравнимые предложения, а не набор разрозненных коммерческих писем.]]></description>
+    <pubDate>Sun, 07 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/tender-na-zakupku-zapchastey/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Планирование ЗИП: как рассчитать неснижаемый запас]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/planirovanie-zip/</link>
+    <description><![CDATA[Как определить, какие запчасти держать на складе всегда, в каком количестве и по какой логике, чтобы не заморозить бюджет и не остаться без критичного узла в момент отказа.]]></description>
+    <pubDate>Sat, 06 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/planirovanie-zip/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Срочная закупка запчасти при поломке станка: алгоритм]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/srochnaya-zakupka-zapchasti/</link>
+    <description><![CDATA[Пошаговый алгоритм действий, когда станок встал, а деталь нужна была ещё вчера: как быстро найти запчасть, не наделать ошибок и не переплатить втридорога.]]></description>
+    <pubDate>Wed, 03 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/srochnaya-zakupka-zapchasti/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Как составить грамотную заявку на запчасть для ЧПУ]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/zayavka-na-zapchast-chpu/</link>
+    <description><![CDATA[Что должно быть в заявке на запчасть для станка с ЧПУ, чтобы поставщик подобрал деталь с первого раза, а не запрашивал уточнения по три дня подряд.]]></description>
+    <pubDate>Wed, 03 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/zayavka-na-zapchast-chpu/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Этапы закупки промышленного оборудования: от заявки до поставки]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/etapy-zakupki-oborudovaniya/</link>
+    <description><![CDATA[Полный маршрут промышленной закупки: от заявки на оборудование или запчасть до приёмки на складе. Что происходит на каждом этапе и где чаще всего теряется время.]]></description>
+    <pubDate>Tue, 02 Jun 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/etapy-zakupki-oborudovaniya/</guid>
+  </item>
+  <item>
     <title><![CDATA[Как организовать хранение запчастей ЧПУ на складе]]></title>
     <link>https://podbor-oborudovaniya.ru/blog/hranenie-zapchastey-chpu-na-sklade/</link>
     <description><![CDATA[Требования к хранению электронных компонентов, плат, энкодеров и сервоприводов: температура, влажность, антистатика, маркировка, ротация запасов.]]></description>
@@ -281,9 +456,9 @@
     <guid>https://podbor-oborudovaniya.ru/blog/inkoterms-dlya-zakupshchika/</guid>
   </item>
   <item>
-    <title><![CDATA[Как составить обоснование закупки оборудования для руководства]]></title>
+    <title><![CDATA[Обоснование закупки оборудования: пример расчёта и образец записки]]></title>
     <link>https://podbor-oborudovaniya.ru/blog/kak-sostavit-obosnovanie-zakupki/</link>
-    <description><![CDATA[Как обосновать закупку оборудования перед руководством: расчёт окупаемости, TCO, аргументация, шаблон служебной записки и типичные ошибки.]]></description>
+    <description><![CDATA[Обоснование закупки оборудования: пример расчёта окупаемости и TCO, образец служебной записки, аргументы для руководства и типичные ошибки.]]></description>
     <pubDate>Wed, 07 Jan 2026 00:00:00 GMT</pubDate>
     <guid>https://podbor-oborudovaniya.ru/blog/kak-sostavit-obosnovanie-zakupki/</guid>
   </item>
