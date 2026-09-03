@@ -31,6 +31,8 @@ jobs:
       - uses: anthropics/claude-code-action@v1
         env:
           YANDEX_OAUTH_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
@@ -60,3 +62,16 @@ jobs:
             --max-budget-usd 1.50
             --effort medium
             --allowedTools "Bash,Read,Write,Edit,Glob,Grep"
+
+      # Safety net: fires only if the agent step itself failed/crashed before
+      # it could send its own Telegram summary, so silence never means "all good".
+      - name: Notify on failure
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            -d parse_mode="HTML" \
+            --data-urlencode text="⚠️ Прогон growth-agent упал до того, как агент успел отчитаться. Смотри лог: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
