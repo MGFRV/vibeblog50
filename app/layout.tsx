@@ -100,7 +100,6 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="robots" content="index, follow" />
         <meta name="yandex" content="index, follow" />
-        <link rel="canonical" href={SITE_URL + '/'} />
         <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </head>
       <body className={`${inter.className} min-h-screen bg-background text-text antialiased`}>
