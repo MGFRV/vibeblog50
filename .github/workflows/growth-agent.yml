@@ -1,7 +1,12 @@
 name: Growth agent
 
 on:
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      instruction:
+        description: 'Конкретное поручение агенту (необязательно — если пусто, решает сам)'
+        required: false
+        default: ''
   # Once you've seen real per-run cost and behavior, uncomment to automate
   # (example: twice a week, Mon/Thu 07:00 UTC):
   # schedule:
@@ -36,6 +41,7 @@ jobs:
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           prompt: |
+            ${{ inputs.instruction != '' && format('Конкретное поручение от человека на этот прогон: {0}. Выполни именно это, если это осмысленно и безопасно (по правилам из AGENTS.md, включая «Радиус поражения») — это приоритет №1 для этого прогона, не занимайся вместо этого самостоятельным анализом. Если поручение неясно или противоречит правилам безопасности — сделай ближайшее осмысленное и безопасное, и обязательно объясни в PR и в Telegram, что именно и почему сделал иначе, чем попросили.', inputs.instruction) || '' }}
             Ты работаешь с этим репозиторием как автономный агент,
             отвечающий за рост органического трафика и качество блога
             podbor-oborudovaniya.ru. Полный контекст, схема контента,
