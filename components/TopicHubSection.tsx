@@ -21,7 +21,7 @@ export default function TopicHubSection({ hubs }: TopicHubSectionProps) {
           <p className="text-xs font-semibold uppercase tracking-widest text-accent">Тематические хабы</p>
           <h2 className="mt-2 text-2xl font-bold text-primary">Выберите направление и начните с ключевых материалов</h2>
         </div>
-        <Link href="/blog" className="text-sm font-semibold text-accent hover:underline">
+        <Link href="/blog/" className="text-sm font-semibold text-accent hover:underline">
           Перейти ко всем статьям
         </Link>
       </div>
@@ -31,7 +31,7 @@ export default function TopicHubSection({ hubs }: TopicHubSectionProps) {
           <article key={hub.slug} className="rounded-xl border border-primary/10 bg-surface p-5 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wide text-accent/90">{hub.count} статей</p>
             <h3 className="mt-2 text-lg font-bold text-primary">
-              <Link href={`/blog?category=${hub.slug}`} className="hover:underline">
+              <Link href={`/blog/?category=${hub.slug}`} className="hover:underline">
                 {hub.name}
               </Link>
             </h3>
@@ -40,7 +40,7 @@ export default function TopicHubSection({ hubs }: TopicHubSectionProps) {
             <ul className="mt-4 space-y-2">
               {hub.articles.map((article) => (
                 <li key={article.slug}>
-                  <Link href={`/blog/${article.slug}`} className="text-sm text-primary hover:text-accent hover:underline">
+                  <Link href={`/blog/${article.slug}/`} className="text-sm text-primary hover:text-accent hover:underline">
                     {article.title}
                   </Link>
                 </li>
@@ -48,7 +48,7 @@ export default function TopicHubSection({ hubs }: TopicHubSectionProps) {
             </ul>
 
             <Link
-              href={`/blog?category=${hub.slug}`}
+              href={`/blog/?category=${hub.slug}`}
               className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline"
             >
               Открыть хаб →

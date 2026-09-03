@@ -21,7 +21,7 @@ export default function ArticleCard({ article }: ArticleCardProps) {
       </span>
 
       <h3 className="mt-3 text-xl font-bold text-primary">
-        <Link href={`/blog/${article.slug}`} className="hover:underline">
+        <Link href={`/blog/${article.slug}/`} className="hover:underline">
           {article.title}
         </Link>
       </h3>

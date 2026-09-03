@@ -17,11 +17,11 @@ export default function HomeSearchPanel({ suggestedTags }: HomeSearchPanelProps)
 
     const normalized = query.trim().toLowerCase();
     if (!normalized) {
-      router.push('/blog');
+      router.push('/blog/');
       return;
     }
 
-    router.push(`/blog?q=${encodeURIComponent(normalized)}`);
+    router.push(`/blog/?q=${encodeURIComponent(normalized)}`);
   };
 
   return (
@@ -36,7 +36,7 @@ export default function HomeSearchPanel({ suggestedTags }: HomeSearchPanelProps)
           </p>
         </div>
 
-        <Link href="/blog" className="text-sm font-semibold text-accent hover:underline">
+        <Link href="/blog/" className="text-sm font-semibold text-accent hover:underline">
           Открыть весь архив статей →
         </Link>
       </div>
@@ -62,7 +62,7 @@ export default function HomeSearchPanel({ suggestedTags }: HomeSearchPanelProps)
           {suggestedTags.map((tag) => (
             <Link
               key={tag}
-              href={`/blog?q=${encodeURIComponent(tag.toLowerCase())}`}
+              href={`/blog/?q=${encodeURIComponent(tag.toLowerCase())}`}
               className="rounded-full border border-primary/15 bg-background px-3 py-1.5 text-xs font-medium text-text/80 transition hover:border-accent/40 hover:text-accent"
             >
               {tag}

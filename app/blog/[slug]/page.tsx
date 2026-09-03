@@ -177,7 +177,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
 
   const breadcrumbs = [
     { label: 'Главная', href: '/' },
-    { label: 'Блог', href: '/blog' },
+    { label: 'Блог', href: '/blog/' },
     { label: article.category },
     { label: article.title }
   ];

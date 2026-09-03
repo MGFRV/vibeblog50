@@ -134,7 +134,7 @@ export default function SearchBar({ articles, query, onQueryChange, onSearchSubm
           {results.map((article) => (
             <li key={article.slug}>
               <Link
-                href={`/blog/${article.slug}`}
+                href={`/blog/${article.slug}/`}
                 onClick={() => setIsOpen(false)}
                 className="block px-4 py-3 hover:bg-slate-50"
               >
