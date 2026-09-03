@@ -34,7 +34,7 @@ export const CATEGORIES: { name: Category; slug: string; description: string }[]
   },
   {
     name: 'Запасные части и сервис',
-    slug: 'запасные-части-и-сервис',
+    slug: 'zapasnye-chasti-i-servis',
     description: 'Как найти и выбрать запасные части для ремонта и обслуживания станков'
   }
 ];

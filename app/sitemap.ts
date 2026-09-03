@@ -36,7 +36,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `${SITE_URL}/blog/?category=${encodeURIComponent(category.slug)}`,
+    url: `${SITE_URL}/blog/category/${category.slug}/`,
     lastModified: now,
     priority: 0.7,
     changeFrequency: 'weekly'
