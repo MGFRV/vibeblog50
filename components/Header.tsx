@@ -5,13 +5,13 @@ import HeaderClientControls from '@/components/HeaderClientControls';
 
 const navigation = [
   { label: 'Главная', href: '/' },
-  { label: 'Блог', href: '/blog' },
+  { label: 'Блог', href: '/blog/' },
   { label: 'О проекте', href: '/about' }
 ];
 
 const quickLinks = [
-  { label: 'Нужен аналог', href: '/blog?q=аналог' },
-  { label: 'Совместимость', href: '/blog?q=совместимость' }
+  { label: 'Нужен аналог', href: '/blog/?q=аналог' },
+  { label: 'Совместимость', href: '/blog/?q=совместимость' }
 ];
 
 export default function Header() {

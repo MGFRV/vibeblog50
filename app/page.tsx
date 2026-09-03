@@ -12,19 +12,19 @@ const quickScenarios = [
   {
     title: 'Нужен аналог детали',
     description: 'Подбор замен и проверка совместимости перед закупкой.',
-    href: '/blog?q=аналог',
+    href: '/blog/?q=аналог',
     cta: 'Найти материалы'
   },
   {
     title: 'Проверить совместимость',
     description: 'Чек-листы по артикулам, брендам и узлам станков ЧПУ.',
-    href: '/blog?q=совместимость',
+    href: '/blog/?q=совместимость',
     cta: 'Спросить по совместимости'
   },
   {
     title: 'Срочная закупка',
     description: 'Как сократить сроки и риски в аварийных поставках.',
-    href: '/blog?q=срочная закупка',
+    href: '/blog/?q=срочная закупка',
     cta: 'Открыть сценарий'
   }
 ];
@@ -45,7 +45,7 @@ const conversionPaths = [
   {
     title: 'Нужна консультация по аналогам',
     description: 'Для сложных позиций начните с подборки статей и переходите к запросу.',
-    href: '/blog?q=аналог',
+    href: '/blog/?q=аналог',
     cta: 'Нужен аналог'
   }
 ];
@@ -78,7 +78,7 @@ export default function HomePage() {
         </p>
         <div className="mt-8 flex flex-col gap-3 sm:flex-row">
           <Link
-            href="/blog"
+            href="/blog/"
             className="inline-flex rounded-md bg-accent px-5 py-3 text-sm font-semibold text-white transition hover:opacity-90"
           >
             Читать блог
@@ -158,7 +158,7 @@ export default function HomePage() {
       <section>
         <div className="mb-5 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-primary">Последние статьи</h2>
-          <Link href="/blog" className="text-sm font-semibold text-accent hover:underline">
+          <Link href="/blog/" className="text-sm font-semibold text-accent hover:underline">
             Все статьи
           </Link>
         </div>
@@ -182,7 +182,7 @@ export default function HomePage() {
                 <h3 className="text-lg font-bold text-primary">{category.name}</h3>
                 <p className="mt-2 text-sm text-text/80">{category.description}</p>
                 <p className="mt-3 text-xs text-text/60">Статей: {total}</p>
-                <Link href={`/blog?category=${category.slug}`} className="mt-3 inline-flex text-sm font-semibold text-accent">
+                <Link href={`/blog/?category=${category.slug}`} className="mt-3 inline-flex text-sm font-semibold text-accent">
                   Смотреть категорию
                 </Link>
               </article>
