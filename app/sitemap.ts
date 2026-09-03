@@ -16,7 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'daily'
     },
     {
-      url: `${SITE_URL}/blog`,
+      url: `${SITE_URL}/blog/`,
       lastModified: now,
       priority: 0.9,
       changeFrequency: 'daily'
@@ -36,14 +36,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   const categoryPages: MetadataRoute.Sitemap = categories.map((category) => ({
-    url: `${SITE_URL}/blog?category=${encodeURIComponent(category.slug)}`,
+    url: `${SITE_URL}/blog/?category=${encodeURIComponent(category.slug)}`,
     lastModified: now,
     priority: 0.7,
     changeFrequency: 'weekly'
   }));
 
   const articlePages: MetadataRoute.Sitemap = articles.map((article) => ({
-    url: `${SITE_URL}/blog/${article.slug}`,
+    url: `${SITE_URL}/blog/${article.slug}/`,
     priority: 0.8,
     changeFrequency: 'weekly',
     lastModified: article.date

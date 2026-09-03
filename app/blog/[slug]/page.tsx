@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: ArticlePageProps): Promise<Me
     };
   }
 
-  const canonical = `${SITE_URL}/blog/${article.slug}`;
+  const canonical = `${SITE_URL}/blog/${article.slug}/`;
 
   return {
     title: `${article.title} | ${SITE_NAME}`,
@@ -120,7 +120,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     notFound();
   }
 
-  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
+  const articleUrl = `${SITE_URL}/blog/${article.slug}/`;
   const headings = extractHeadings(article.content);
   const related = getRelatedArticles(article.slug, article.category, 3).map(({ content: _content, ...item }) => item);
 
@@ -164,7 +164,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         '@type': 'ListItem',
         position: 2,
         name: 'Блог',
-        item: `${SITE_URL}/blog`
+        item: `${SITE_URL}/blog/`
       },
       {
         '@type': 'ListItem',
