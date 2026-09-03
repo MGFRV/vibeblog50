@@ -182,7 +182,7 @@ export default function HomePage() {
                 <h3 className="text-lg font-bold text-primary">{category.name}</h3>
                 <p className="mt-2 text-sm text-text/80">{category.description}</p>
                 <p className="mt-3 text-xs text-text/60">Статей: {total}</p>
-                <Link href={`/blog/?category=${category.slug}`} className="mt-3 inline-flex text-sm font-semibold text-accent">
+                <Link href={`/blog/category/${category.slug}/`} className="mt-3 inline-flex text-sm font-semibold text-accent">
                   Смотреть категорию
                 </Link>
               </article>

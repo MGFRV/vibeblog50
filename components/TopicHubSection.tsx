@@ -31,7 +31,7 @@ export default function TopicHubSection({ hubs }: TopicHubSectionProps) {
           <article key={hub.slug} className="rounded-xl border border-primary/10 bg-surface p-5 shadow-sm">
             <p className="text-xs font-semibold uppercase tracking-wide text-accent/90">{hub.count} статей</p>
             <h3 className="mt-2 text-lg font-bold text-primary">
-              <Link href={`/blog/?category=${hub.slug}`} className="hover:underline">
+              <Link href={`/blog/category/${hub.slug}/`} className="hover:underline">
                 {hub.name}
               </Link>
             </h3>
@@ -48,7 +48,7 @@ export default function TopicHubSection({ hubs }: TopicHubSectionProps) {
             </ul>
 
             <Link
-              href={`/blog/?category=${hub.slug}`}
+              href={`/blog/category/${hub.slug}/`}
               className="mt-4 inline-flex text-sm font-semibold text-accent hover:underline"
             >
               Открыть хаб →
