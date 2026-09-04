@@ -1,0 +1,21 @@
+# ПодборОборудования
+
+> Экспертный блог о поиске, выборе и закупке промышленного оборудования и
+> запчастей для станков с ЧПУ в России. Аудитория — снабженцы и специалисты
+> по закупкам на производстве. Материалы написаны прямо и практически, без
+> маркетинговой воды: чек-листы, разборы документов, сравнение поставщиков,
+> подбор аналогов запчастей.
+
+## Ключевые статьи
+
+- [Что такое ЗИП: расшифровка и состав](https://podbor-oborudovaniya.ru/blog/chto-takoe-zip-rasshifrovka/): что входит в ЗИП, чем отличается от аварийного запаса.
+- [Правило трёх КП](https://podbor-oborudovaniya.ru/blog/pravilo-treh-kp/): зачем запрашивать минимум три коммерческих предложения перед закупкой.
+- [Спецификация к договору поставки](https://podbor-oborudovaniya.ru/blog/spetsifikatsiya-k-dogovoru-postavki/): обязательные поля, отличие от ТЗ и КП.
+- [Как составить обоснование закупки](https://podbor-oborudovaniya.ru/blog/kak-sostavit-obosnovanie-zakupki/): структура документа и типичные ошибки.
+- [Кросс-референс и подбор аналогов](https://podbor-oborudovaniya.ru/blog/kross-referens-analogi/): как найти аналог детали по кросс-референсу.
+- [Импортозамещение комплектующих для ЧПУ](https://podbor-oborudovaniya.ru/blog/importozameshchenie-komplektuyushchih/): подходы к замене импортных комплектующих.
+- [Совместимость: разъёмы и протоколы](https://podbor-oborudovaniya.ru/blog/sovmestimost-razyomy-protokoly/): что проверять перед заказом запчасти.
+
+## Разделы
+
+- [Все статьи блога](https://podbor-oborudovaniya.ru/blog/)
