@@ -64,7 +64,7 @@ jobs:
             опиши проблему, не мержи.
           claude_args: |
             --model claude-sonnet-5
-            --max-turns 50
+            --max-turns 65
             --max-budget-usd 1.50
             --effort medium
             --allowedTools "Bash,Read,Write,Edit,Glob,Grep,WebSearch,WebFetch"
