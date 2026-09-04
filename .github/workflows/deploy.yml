@@ -35,3 +35,29 @@ jobs:
             ln -sfn $RELEASE_DIR /var/www/podbor-oborudovaniya/current &&
             cd /var/www/podbor-oborudovaniya/releases && ls -t | tail -n +6 | xargs -r rm -rf
           "
+
+      # Best-effort ping to IndexNow with the current sitemap, so search
+      # engines learn about new/changed pages right after deploy, without
+      # waiting for the next crawl or a manual Webmaster recrawl push.
+      # Never fails the deploy job — indexing pings are non-critical.
+      #
+      # Yandex's own IndexNow docs (yandex.ru/support/webmaster/ru/indexnow)
+      # specify their own endpoint (yandex.com/indexnow) and don't mention
+      # the generic api.indexnow.org aggregator — so we hit Yandex directly
+      # to be sure it actually lands there, plus the generic aggregator as a
+      # bonus for Bing/other participants (cheap, non-critical either way).
+      - name: Ping IndexNow with current sitemap URLs
+        continue-on-error: true
+        run: |
+          KEY="924f005ad5c31176b5881dd6ac6adf5d"
+          HOST="podbor-oborudovaniya.ru"
+          URLS=$(grep -oP '(?<=<loc>)[^<]+' out/sitemap.xml | sed 's/.*/"&"/' | paste -sd, - || true)
+          if [ -n "$URLS" ]; then
+            BODY="{\"host\":\"$HOST\",\"key\":\"$KEY\",\"keyLocation\":\"https://$HOST/$KEY.txt\",\"urlList\":[$URLS]}"
+            curl -s --max-time 10 -X POST "https://yandex.com/indexnow" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              -d "$BODY" || true
+            curl -s --max-time 10 -X POST "https://api.indexnow.org/indexnow" \
+              -H "Content-Type: application/json; charset=utf-8" \
+              -d "$BODY" || true
+          fi
