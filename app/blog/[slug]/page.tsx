@@ -199,7 +199,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
         </div>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,3fr)]">
-          <div>
+          <div className="min-w-0">
             <div className="mb-5 space-y-3">
               <a
                 href="/author/sergey/"
