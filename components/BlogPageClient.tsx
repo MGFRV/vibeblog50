@@ -8,12 +8,9 @@ import type { ArticleFrontmatter } from '@/lib/types';
 
 interface BlogPageClientProps {
   articles: ArticleFrontmatter[];
-  showQuickQueries?: boolean;
 }
 
-const quickQueries = ['аналог', 'совместимость', 'срочная закупка', 'серводвигатели', 'чек-лист'];
-
-export default function BlogPageClient({ articles, showQuickQueries = true }: BlogPageClientProps) {
+export default function BlogPageClient({ articles }: BlogPageClientProps) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -63,32 +60,6 @@ export default function BlogPageClient({ articles, showQuickQueries = true }: Bl
 
   return (
     <div className="space-y-6">
-      {showQuickQueries ? (
-        <div className="rounded-xl border border-primary/10 bg-surface p-4 md:p-5">
-          <p className="text-sm text-text/75">
-            Используйте поиск как основной навигатор по задачам: от «нужен аналог» и «проверка совместимости» до
-            «срочная закупка».
-          </p>
-
-          <div className="mt-3 flex flex-wrap gap-2">
-            {quickQueries.map((queryItem) => (
-              <button
-                key={queryItem}
-                type="button"
-                onClick={() => {
-                  const normalized = queryItem.trim().toLowerCase();
-                  setSearchQuery(normalized);
-                  updateUrlQuery(normalized);
-                }}
-                className="rounded-full border border-primary/15 bg-background px-3 py-1 text-xs font-medium text-text/80 transition hover:border-accent/40 hover:text-accent"
-              >
-                {queryItem}
-              </button>
-            ))}
-          </div>
-        </div>
-      ) : null}
-
       <SearchBar
         articles={articles}
         query={searchQuery}
