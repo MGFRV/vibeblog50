@@ -70,7 +70,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <CategoryFilter categories={categories} activeSlug={category.slug} />
 
       <Suspense fallback={staticFallback}>
-        <BlogPageClient articles={articles} showQuickQueries={false} />
+        <BlogPageClient articles={articles} />
       </Suspense>
     </div>
   );

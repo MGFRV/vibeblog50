@@ -8,6 +8,20 @@
     <atom:link href="https://podbor-oborudovaniya.ru/rss.xml" rel="self" type="application/rss+xml"/>
     
   <item>
+    <title><![CDATA[Матрица совместимости узлов ЧПУ Fanuc, Siemens и Mitsubishi]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/matritsa-sovmestimosti-fanuc-siemens-mitsubishi/</link>
+    <description><![CDATA[Сравнение шины ЧПУ-привод, интерфейса обратной связи и полевой шины ввода-вывода у Fanuc, Siemens Sinumerik и Mitsubishi Electric со ссылками на документацию производителей.]]></description>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/matritsa-sovmestimosti-fanuc-siemens-mitsubishi/</guid>
+  </item>
+  <item>
+    <title><![CDATA[Точка заказа для ЗИП ЧПУ: как рассчитать минимальный остаток]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/tochka-zakaza-zip-chpu/</link>
+    <description><![CDATA[Формула точки заказа (ROP) для запчастей ЧПУ: как определить остаток, при котором пора заказывать замену, и чем это отличается от неснижаемого запаса.]]></description>
+    <pubDate>Fri, 04 Sep 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/tochka-zakaza-zip-chpu/</guid>
+  </item>
+  <item>
     <title><![CDATA[Что такое ЗИП: расшифровка, состав и зачем он нужен на производстве]]></title>
     <link>https://podbor-oborudovaniya.ru/blog/chto-takoe-zip-rasshifrovka/</link>
     <description><![CDATA[Расшифровка аббревиатуры ЗИП, что входит в комплект, чем он отличается от аварийного запаса и как его учитывают на складе и в бухгалтерии.]]></description>
