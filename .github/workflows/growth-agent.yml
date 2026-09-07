@@ -33,16 +33,13 @@ jobs:
 
       - run: npm ci
 
-      # Pinned to the last commit confirmed working (PR #74, 2026-09-04:
-      # SHA ef8bb1e, claude-agent-sdk@0.3.260, Claude Code v2.1.260).
-      # The floating @v1 tag moved to SHA 9c5ddab2 sometime before
-      # 2026-09-07 (claude-agent-sdk@0.3.263, Claude Code v2.1.263) and
-      # both runs on that new version failed with subtype:"success" +
-      # is_error:true — once after 19 real turns, once instantly at
-      # turn 1 / $0 cost, before any model call completed. That's not
-      # something our prompt or AGENTS.md caused. Re-float back to @v1
-      # once a newer version is confirmed working again.
-      - uses: anthropics/claude-code-action@ef8bb1e43bf303cff727a1dd0b8837029fe982a2
+      # 2026-09-07: a string of subtype:"success"+is_error:true failures
+      # (some instant at $0, one after 19 real turns) turned out to be the
+      # account's $10 spend limit, not a version regression or a prompt
+      # issue — both of those were tested directly and ruled out. Root
+      # cause confirmed, limit raised in the console — no reason to stay
+      # pinned to an old SHA, so back on the floating tag.
+      - uses: anthropics/claude-code-action@v1
         env:
           YANDEX_OAUTH_TOKEN: ${{ secrets.YANDEX_OAUTH_TOKEN }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
