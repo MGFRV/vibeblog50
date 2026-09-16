@@ -8,6 +8,13 @@
     <atom:link href="https://podbor-oborudovaniya.ru/rss.xml" rel="self" type="application/rss+xml"/>
     
   <item>
+    <title><![CDATA[Как проверить сервопривод мультиметром: что реально можно измерить]]></title>
+    <link>https://podbor-oborudovaniya.ru/blog/proverka-servoprivoda-multimetrom/</link>
+    <description><![CDATA[Что можно проверить мультиметром у сервоусилителя ЧПУ до вызова сервиса: предохранители, силовые цепи, разъёмы, а что мультиметром не проверяется и опасно.]]></description>
+    <pubDate>Mon, 07 Sep 2026 00:00:00 GMT</pubDate>
+    <guid>https://podbor-oborudovaniya.ru/blog/proverka-servoprivoda-multimetrom/</guid>
+  </item>
+  <item>
     <title><![CDATA[Матрица совместимости узлов ЧПУ Fanuc, Siemens и Mitsubishi]]></title>
     <link>https://podbor-oborudovaniya.ru/blog/matritsa-sovmestimosti-fanuc-siemens-mitsubishi/</link>
     <description><![CDATA[Сравнение шины ЧПУ-привод, интерфейса обратной связи и полевой шины ввода-вывода у Fanuc, Siemens Sinumerik и Mitsubishi Electric со ссылками на документацию производителей.]]></description>
@@ -477,9 +484,9 @@
     <guid>https://podbor-oborudovaniya.ru/blog/inkoterms-dlya-zakupshchika/</guid>
   </item>
   <item>
-    <title><![CDATA[Обоснование закупки оборудования: пример расчёта и образец записки]]></title>
+    <title><![CDATA[Обоснование закупки и приобретения оборудования: готовый образец записки]]></title>
     <link>https://podbor-oborudovaniya.ru/blog/kak-sostavit-obosnovanie-zakupki/</link>
-    <description><![CDATA[Обоснование закупки оборудования: пример расчёта окупаемости и TCO, образец служебной записки, аргументы для руководства и типичные ошибки.]]></description>
+    <description><![CDATA[Готовый образец обоснования и служебной записки на приобретение или закупку оборудования: расчёт окупаемости и TCO, сравнение вариантов, типичные ошибки.]]></description>
     <pubDate>Wed, 07 Jan 2026 00:00:00 GMT</pubDate>
     <guid>https://podbor-oborudovaniya.ru/blog/kak-sostavit-obosnovanie-zakupki/</guid>
   </item>
