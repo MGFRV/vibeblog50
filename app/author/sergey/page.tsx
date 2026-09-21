@@ -3,7 +3,7 @@ import SchemaOrg from '@/components/SchemaOrg';
 import { SITE_URL } from '@/lib/constants';
 
 export const metadata: Metadata = {
-  title: 'Сергей С. — главный редактор ПодборОборудования',
+  title: 'Максим Караваев — главный редактор ПодборОборудования',
   description:
     '20 лет в поставках запчастей для ЧПУ. Главный редактор проекта ПодборОборудования от ООО «Эффективное производство».',
   alternates: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     type: 'profile',
     siteName: 'ПодборОборудования',
     locale: 'ru_RU',
-    title: 'Сергей С. — главный редактор ПодборОборудования',
+    title: 'Максим Караваев — главный редактор ПодборОборудования',
     description:
       '20 лет в поставках запчастей для ЧПУ. Главный редактор проекта ПодборОборудования от ООО «Эффективное производство».',
     url: `${SITE_URL}/author/sergey/`
@@ -28,7 +28,7 @@ export default function SergeyAuthorPage() {
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: 'Сергей С.',
+    name: 'Максим Караваев',
     jobTitle: 'Главный редактор',
     description: '20 лет в поставках запчастей и комплектующих для станков с ЧПУ',
     url: `${SITE_URL}/author/sergey/`,
@@ -58,12 +58,12 @@ export default function SergeyAuthorPage() {
             className="flex h-20 w-20 items-center justify-center rounded-full bg-primary/10 text-2xl font-bold text-primary"
             aria-label="Фото автора"
           >
-            СС
+            МК
           </div>
 
           <div>
             <h1 className="text-3xl font-bold text-primary" itemProp="name">
-              Сергей С.
+              Максим Караваев
             </h1>
             <p className="mt-1 text-sm text-text/70" itemProp="jobTitle">
               Главный редактор · ПодборОборудования
@@ -75,7 +75,7 @@ export default function SergeyAuthorPage() {
         <section className="space-y-4 text-text/85">
           <h2 className="text-2xl font-bold text-primary">Об авторе</h2>
           <p itemProp="description">
-            Сергей занимается поставками комплектующих для ЧПУ-оборудования более 20 лет. За это время прошёл путь от
+            Максим занимается поставками комплектующих для ЧПУ-оборудования более 20 лет. За это время прошёл путь от
             технического специалиста до руководителя направления. Работал с брендами FANUC, Siemens, HEIDENHAIN,
             Renishaw, Balluff — знает не только каталоги, но и реальные условия эксплуатации на производстве.
           </p>

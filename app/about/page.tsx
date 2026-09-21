@@ -150,7 +150,7 @@ export default function AboutPage() {
           <p>
             Все материалы проекта готовятся под руководством главного редактора —{' '}
             <Link href="/author/sergey/" className="font-semibold text-accent hover:underline">
-              Сергея С.
+              Максима Караваева
             </Link>
             , специалиста с 20-летним опытом в поставках запчастей для ЧПУ.
           </p>
