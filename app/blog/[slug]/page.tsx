@@ -133,7 +133,7 @@ export default function ArticlePage({ params }: ArticlePageProps) {
     dateModified: article.date,
     author: {
       '@type': 'Person',
-      name: 'Сергей С.',
+      name: 'Максим Караваев',
       jobTitle: 'Главный редактор',
       url: `${SITE_URL}/author/sergey/`,
       knowsAbout: ['ЧПУ', 'станки', 'запчасти для станков', 'комплектующие ЧПУ']
@@ -206,11 +206,11 @@ export default function ArticlePage({ params }: ArticlePageProps) {
                 className="flex w-full items-center gap-3 rounded-lg border border-primary/10 bg-surface px-3 py-2 no-underline transition hover:border-primary/30"
               >
                 <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-accent/10 text-xs font-semibold text-accent">
-                  СС
+                  МК
                 </div>
                 <div>
                   <p className="text-xs text-text/50">Автор</p>
-                  <p className="text-sm font-semibold text-primary">Сергей С.</p>
+                  <p className="text-sm font-semibold text-primary">Максим Караваев</p>
                   <p className="text-xs text-text/60">Главный редактор · ПодборОборудования</p>
                 </div>
               </a>
